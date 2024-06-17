@@ -1,7 +1,6 @@
 mod expressions;
 mod utils;
 
-
 #[cfg(target_os = "linux")]
 use jemallocator::Jemalloc;
 
@@ -10,8 +9,8 @@ use jemallocator::Jemalloc;
 static ALLOC: Jemalloc = Jemalloc;
 
 use pyo3::types::PyModule;
-use pyo3::{pymodule, PyResult, Bound};
 use pyo3::Python;
+use pyo3::{pymodule, Bound, PyResult};
 
 #[pymodule]
 fn harley(_py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
