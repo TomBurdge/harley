@@ -1,7 +1,11 @@
 from harley.utils import PolarsFrame
+from typing import Dict, OrderedDict, Union
 
 class DataFrameMissingColumnError(ValueError):
     """Raise this when there's a DataFrame column error."""
+
+class DataSchemaError(ValueError):
+    """Raise this when schema validation fails"""
 
 def validate_presence_of_columns(df: PolarsFrame, required_col_names: list[str]) -> None:
     """Validate the presence of column names in a DataFrame.
@@ -19,3 +23,11 @@ def validate_presence_of_columns(df: PolarsFrame, required_col_names: list[str])
     error_message = f"The {missing_col_names} columns are not included in the DataFrame with the following columns {all_col_names}"
     if missing_col_names:
         raise DataFrameMissingColumnError(error_message)
+
+def validate_schema(df: PolarsFrame, required_schema: Union[Dict, OrderedDict])-> None:
+    df_schema = df.schema
+    if isinstance(required_schema, dict):
+        df_schema = dict(df_schema)
+    if not required_schema ==df_schema:
+        raise DataSchemaError("The Frame did not match the expected schema")
+    
