@@ -16,25 +16,38 @@ use std::fmt::Write;
 
 #[polars_expr(output_type=String)]
 fn single_space(inputs: &[Series]) -> PolarsResult<Series> {
+    // replaces all whitespace with a single space, then removes leading and trailing spaces
+
     let ca: &StringChunked = inputs[0].str()?;
     let out: StringChunked = ca.apply_to_buffer(|value: &str, output: &mut String| {
-        if value == "" {return;}
-        let mut start_with_white_space = value.chars().next().unwrap().is_whitespace();
-        let mut to_add_space = false;
-        for c in value.chars() {
-            if c.is_whitespace() {
-                to_add_space = true;
-            } else {
-                if to_add_space {
-                    if !start_with_white_space {
-                        write!(output, " ").unwrap();
+        if let Some(_) = value.chars().next() {
+            let n = value.chars().count();
+            let mut first_non_space_index = n;
+            let mut has_space = false;
+            let mut first_space = true;
+            for (i, c) in value.chars().enumerate() {
+                if c.is_whitespace() {
+                    has_space = true;
+                    if first_non_space_index != n {
+                        output.push_str(&value[first_non_space_index..i]);
+                        first_non_space_index = n;
                     }
-                    start_with_white_space = false;
-                    to_add_space = false;
+                } else {
+                    if has_space {
+                        if !first_space {
+                            output.push(' ');   
+                            // write!(output, " ").unwrap();
+                        }
+                        has_space = false;
+                    }
+                    first_space = false;
+                    if first_non_space_index == n {
+                        first_non_space_index = i;
+                    }
                 }
-                write!(output, "{}", c).unwrap();
             }
-        }
+            output.push_str(&value[first_non_space_index..n]);
+       }
     });
     Ok(out.into_series())
 }
