@@ -65,7 +65,7 @@ Wouldn't even make a very good log parser.
 ### Transformations
 * `with_columns_renamed` - covered by `polars.DataFrame|LazyFrame.rename` in polars.
 * `with_some_columns_renamed` see `with_columns_renamed`.
-* [ ] `snake_case_col_names` python. Needs more robust tests than `quinn`.
+* `snake_case_col_names` python. DONE. Needs more robust tests than `quinn`.
 * `sort_columns` I think this is covered by polars sort?
 * [ ] `flatten_struct` python.
 * `flatten_map` There is no `map` type in polars.
