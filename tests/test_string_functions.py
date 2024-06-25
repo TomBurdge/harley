@@ -37,7 +37,7 @@ def test_single_space_by_chars(lazy: bool):
     if lazy:
         frame = frame.lazy()
     frame = frame.with_columns(
-        actual = harley.single_space_by_chars("input")
+        actual = harley.single_space("input")
     )
     if lazy:
         frame = frame.collect()
