@@ -5,10 +5,7 @@ from typing import TYPE_CHECKING
 
 import polars as pl
 
-
 from harley.utils import parse_into_expr, register_plugin, parse_version
-from harley.dataframe_helper import column_to_list
-from harley.string_functions import single_space
 
 if TYPE_CHECKING:
     from polars.type_aliases import IntoExpr
@@ -20,4 +17,15 @@ if parse_version(pl.__version__) < parse_version("0.20.16"):
 else:
     lib = Path(__file__).parent
 
-__all__ = ["column_to_list", "single_space"]
+
+def single_space(expr: IntoExpr) -> IntoExpr:
+    """
+    Removes all whitespace from a string.
+    """
+    expr = parse_into_expr(expr)
+    return register_plugin(
+        args=[expr],
+        symbol="single_space",
+        is_elementwise=True,
+        lib=lib,
+    )
