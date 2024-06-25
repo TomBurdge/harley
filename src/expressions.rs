@@ -20,7 +20,7 @@ fn single_space(inputs: &[Series]) -> PolarsResult<Series> {
 
     let ca: &StringChunked = inputs[0].str()?;
     let out: StringChunked = ca.apply_to_buffer(|value: &str, output: &mut String| {
-        if let Some(_) = value.chars().next() {
+        if value.chars().next().is_some() {
             let n = value.chars().count();
             let mut first_non_space_index = n;
             let mut has_space = false;
@@ -35,8 +35,7 @@ fn single_space(inputs: &[Series]) -> PolarsResult<Series> {
                 } else {
                     if has_space {
                         if !first_space {
-                            output.push(' ');   
-                            // write!(output, " ").unwrap();
+                            output.push(' ');
                         }
                         has_space = false;
                     }
@@ -47,7 +46,7 @@ fn single_space(inputs: &[Series]) -> PolarsResult<Series> {
                 }
             }
             output.push_str(&value[first_non_space_index..n]);
-       }
+        }
     });
     Ok(out.into_series())
 }

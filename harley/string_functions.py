@@ -17,6 +17,7 @@ if parse_version(pl.__version__) < parse_version("0.20.16"):
 else:
     lib = Path(__file__).parent
 
+
 def single_space(expr: IntoExpr) -> IntoExpr:
     """
     Removes all whitespace from a string.
