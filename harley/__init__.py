@@ -8,6 +8,7 @@ import polars as pl
 
 from harley.utils import parse_into_expr, register_plugin, parse_version
 from harley.dataframe_helper import column_to_list
+from harley.transformations import snake_case_column_names
 
 if TYPE_CHECKING:
     from polars.type_aliases import IntoExpr
@@ -19,4 +20,4 @@ if parse_version(pl.__version__) < parse_version("0.20.16"):
 else:
     lib = Path(__file__).parent
 
-__all__ = ["column_to_list"]
+__all__ = ["column_to_list", "snake_case_column_names"]
