@@ -1,4 +1,7 @@
 #![allow(clippy::unused_unit)]
+use polars::prelude::*;
+use pyo3_polars::derive::polars_expr;
+use std::fmt::Write;
 use pyo3::prelude::*;
 use pyo3::types::PyDict;
 use heck::ToSnakeCase;
