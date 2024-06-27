@@ -50,3 +50,27 @@ fn single_space(inputs: &[Series]) -> PolarsResult<Series> {
     });
     Ok(out.into_series())
 }
+
+#[polars_expr(output_type=String)]
+fn remove_all_whitespace(inputs: &[Series]) -> PolarsResult<Series> {
+    // removes all whitespace with a single space
+    let ca: &StringChunked = inputs[0].str()?;
+    let out: StringChunked = ca.apply_to_buffer(|value: &str, output: &mut String| {
+        if value.chars().next().is_some() {
+            let n = value.chars().count();
+            let mut first_non_space_index = n;
+            for (i, c) in value.chars().enumerate() {
+                if c.is_whitespace() {
+                    if first_non_space_index != n {
+                        output.push_str(&value[first_non_space_index..i]);
+                        first_non_space_index = n;
+                    }
+                } else if first_non_space_index == n {
+                    first_non_space_index = i;
+                }
+            }
+            output.push_str(&value[first_non_space_index..n]);
+        }
+    });
+    Ok(out.into_series())
+}
