@@ -22,3 +22,20 @@ def test_single_space(lazy: bool):
     if lazy:
         frame = frame.collect()
     assert_series_equal(frame["actual"], frame["expected"], check_names=False)
+
+@pytest.mark.parametrize("lazy", [True, False])
+def test_remove_all_whitespace(lazy: bool):
+    string_data = [
+        ("  I\t\r\v\n go   ", "Igo"),
+        ("    to", "to"),
+        ("school   ", "school"),
+        ("by bus", "bybus"),
+        (None, None),
+    ]
+    frame = pl.DataFrame([{"input": inp, "expected": exp} for inp, exp in string_data])
+    if lazy:
+        frame = frame.lazy()
+    frame = frame.with_columns(actual=harley.remove_all_whitespace("input"))
+    if lazy:
+        frame = frame.collect()
+    assert_series_equal(frame["actual"], frame["expected"], check_names=False)

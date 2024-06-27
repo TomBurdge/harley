@@ -20,12 +20,24 @@ else:
 
 def single_space(expr: IntoExpr) -> IntoExpr:
     """
-    Removes all whitespace from a string.
+    Replaces all whitespace to a single space from a string, then trims leading and trailing spaces.
     """
     expr = parse_into_expr(expr)
     return register_plugin(
         args=[expr],
         symbol="single_space",
+        is_elementwise=True,
+        lib=lib,
+    )
+
+def remove_all_whitespace(expr: IntoExpr) -> IntoExpr:
+    """
+    Removes all whitespace from a string.
+    """
+    expr = parse_into_expr(expr)
+    return register_plugin(
+        args=[expr],
+        symbol="remove_all_whitespace",
         is_elementwise=True,
         lib=lib,
     )
