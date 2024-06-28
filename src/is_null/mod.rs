@@ -63,16 +63,16 @@ impl ProcessIsNullOrBlanks for crate::is_null::NullOrBlankSeries <'_> {
             , NullOrBlankSeries::StringSeries { series ,treat_all_white_space_as_blank} => {
                 let ca = series[0].str()?;
                 if treat_all_white_space_as_blank {
-                ca.into_iter().for_each(|op_s| {
-                    if let Some(s) = op_s{
-                        if s.is_empty() { results.append_value(true)}
-                        else {results.append_value(s.trim().is_empty())};
+                    ca.into_iter().for_each(|op_s| {
+                        if let Some(s) = op_s{
+                            if s.is_empty() { results.append_value(true)}
+                            else {results.append_value(s.trim().is_empty())};
+                        }
+                        else {
+                            results.append_value(true)
+                        }
                     }
-                    else {
-                        results.append_value(true)
-                    }
-                }
-                );
+                    );
                 }
                 else {
                     ca.into_iter().for_each(|op_s| {
