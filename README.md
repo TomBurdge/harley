@@ -13,22 +13,22 @@ All functions, whether they should be implemented.
 #### append if schema identical
 * [ ] `append_if_schema_identical` - python.
 #### dataframe_helpers
-* [ ] `column_to_list` - python. (this is just polars `select`, `collect`, `to_list`, much more convenient than spark).
+* [x] `column_to_list` - python. (this is just polars `select`, `collect`, `to_list`, much more convenient than spark).
 * [ ] `two_columns_to_dictionary` - python
-* `to_list_of_dictionaries` - in polars. (check)
+* [x] `to_list_of_dictionaries` - in polars.
 * [ ] `show_output_to_df` - rename to something like `dataframe_output_to_df` python/rust.
 * `create_df` - in polars native.
 
 #### dataframe validator
-* [ ] `validate_presence_of_columns` - python.
-* [ ] `validate_schema` - python.
-* [ ] `validate_absence_of_columns` - python.
+* [x] `validate_presence_of_columns` - python.
+* [x] `validate_schema` - python.
+* [x] `validate_absence_of_columns` - python.
 
 #### Functions
-* [ ] `single_space` - rust.
-* [ ] `remove_all_whitespace` - rust.
+* [x] `single_space` - rust.
+* [x] `remove_all_whitespace` - rust.
 * [ ] `anti_trim` - rust.
-* [ ] `remove_non_word_characters` - rust.
+* [x] `remove_non_word_characters` - rust.
 * `exists` - Propose not implement bc don't want to allow for an arbitrary python function as the callable. This requires inefficient map which will tank performance.
 * `forall` - see `exists`.
 * [ ] `multi_equals` - rust.
