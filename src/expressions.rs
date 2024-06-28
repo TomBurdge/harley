@@ -2,17 +2,18 @@
 use polars::prelude::*;
 use pyo3_polars::derive::polars_expr;
 use std::fmt::Write;
+use pyo3::prelude::*;
+use pyo3::types::PyDict;
+use heck::ToSnakeCase;
 
-// #[polars_expr(output_type=String)]
-// fn pig_latinnify(inputs: &[Series]) -> PolarsResult<Series> {
-//     let ca: &StringChunked = inputs[0].str()?;
-//     let out: StringChunked = ca.apply_to_buffer(|value: &str, output: &mut String| {
-//         if let Some(first_char) = value.chars().next() {
-//             write!(output, "{}{}ay", &value[1..], first_char).unwrap()
-//         }
-//     });
-//     Ok(out.into_series())
-// }
+#[pyfunction]
+pub fn columns_to_snake_case(py:Python, columns: Vec<String>) -> PyResult<Py<PyDict>> {
+    let py_dict = PyDict::new_bound(py);
+    for col in columns.iter(){
+        py_dict.set_item(col, col.to_snake_case())?;
+    }
+    Ok(py_dict.into())
+}
 
 #[polars_expr(output_type=String)]
 fn single_space(inputs: &[Series]) -> PolarsResult<Series> {
