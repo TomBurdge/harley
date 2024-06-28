@@ -1,6 +1,18 @@
 #![allow(clippy::unused_unit)]
 use polars::prelude::*;
 use pyo3_polars::derive::polars_expr;
+use pyo3::prelude::*;
+use pyo3::types::PyDict;
+use heck::ToSnakeCase;
+
+#[pyfunction]
+pub fn columns_to_snake_case(py:Python, columns: Vec<String>) -> PyResult<Py<PyDict>> {
+    let py_dict = PyDict::new_bound(py);
+    for col in columns.iter(){
+        py_dict.set_item(col, col.to_snake_case())?;
+    }
+    Ok(py_dict.into())
+}
 
 #[polars_expr(output_type=String)]
 fn single_space(inputs: &[Series]) -> PolarsResult<Series> {
