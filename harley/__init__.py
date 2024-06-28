@@ -8,7 +8,10 @@ import polars as pl
 
 from harley.utils import parse_into_expr, register_plugin, parse_version
 from harley.dataframe_helper import column_to_list
+<<<<<<< HEAD
 from harley.transformations import snake_case_column_names
+=======
+>>>>>>> a0bd4aab6c083df0c9b81759f0998d5047f0b48a
 from harley.string_functions import single_space, remove_all_whitespace, remove_non_word_characters
 
 if TYPE_CHECKING:
