@@ -8,10 +8,8 @@ from harley.dataframe_validator import (
     DataFrameProhibitedColumnError,
 )
 import pytest
-from polars import DataFrame, LazyFrame
 from typing import OrderedDict, Union, Dict
-
-polars_frames = [DataFrame, LazyFrame]
+from tests.conftest import polars_frames
 
 age_name_data = {"age": [1, 2, 3], "name": ["jose", "li", "luisa"]}
 
