@@ -13,7 +13,6 @@ from tests.conftest import polars_frames
 
 age_name_data = {"age": [1, 2, 3], "name": ["jose", "li", "luisa"]}
 
-
 @pytest.mark.parametrize("frame_type", polars_frames)
 def test_validate_presence_of_columns_fail(frame_type: pl.DataType):
     source_df = frame_type(age_name_data)

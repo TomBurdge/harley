@@ -212,6 +212,7 @@ dependencies = [
 name = "harley"
 version = "0.1.0"
 dependencies = [
+ "heck 0.5.0",
  "jemallocator",
  "polars",
  "pyo3",
