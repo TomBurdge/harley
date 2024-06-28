@@ -41,3 +41,15 @@ def remove_all_whitespace(expr: IntoExpr) -> IntoExpr:
         is_elementwise=True,
         lib=lib,
     )
+
+def remove_non_word_characters(expr: IntoExpr) -> IntoExpr:
+    """
+    Removes all non-word characters. "Word characters" are [\w\s], i.e. alphanumeric, whitespace, and underscore ("_").
+    """
+    expr = parse_into_expr(expr)
+    return register_plugin(
+        args=[expr],
+        symbol="remove_non_word_characters",
+        is_elementwise=True,
+        lib=lib,
+    )
