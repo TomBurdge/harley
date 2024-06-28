@@ -2,6 +2,7 @@ import pytest
 from harley.transformations import snake_case_column_names
 from polars import DataFrame, LazyFrame
 from typing import Union
+from tests.conftest import combine_pytest_params_with_dtypes, polars_frames
 
 age_name_data = {"age": [1, 2, 3], "name": ["jose", "li", "luisa"]}
 
@@ -40,11 +41,7 @@ columns = [
     ["ABC123Def456", "abc123_def456"],
     ["ABC123DEf456", "abc123d_ef456"],
 ]
-
-frame_column_combinations = []
-for columns in columns:
-    frame_column_combinations.append(tuple([DataFrame] + columns))
-    frame_column_combinations.append(tuple([LazyFrame] + columns))
+frame_column_combinations = combine_pytest_params_with_dtypes(polars_frames, columns)
 
 @pytest.mark.parametrize(
     "frame_type, input_column, exp",
