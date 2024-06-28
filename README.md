@@ -42,7 +42,7 @@ All functions, whether they should be implemented.
 * [ ] `is_truthy` - rust.
 * [ ] `is_false` - rust.
 * [ ] `is_true` - rust.
-* * `is_null_or_blank` DONE - rust.
+* `is_null_or_blank` DONE - rust.
 * `is_not_in` - might be covered by native polars.
 * [ ] `null_between` - rust.
 
