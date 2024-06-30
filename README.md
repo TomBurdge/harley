@@ -57,7 +57,7 @@ Wouldn't even make a very good log parser.
 ### Schema Helpers
 * [ ] `print_schema_as_code` - python.
 * [ ] `schema_from_csv` - python. (is this just scan_csv(path).schema ?)
-* [ ] `complex_fields` - python.
+* [*] `complex_fields` - python.
 
 ### Split columns
 * `split_col` - `quinn` function expects only one delimiter, which may not be true... I prefer how `split` polars does it, where it returns an array column. Propose not implement, or add but with an index position argument.
