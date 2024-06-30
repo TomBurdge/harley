@@ -55,7 +55,7 @@ Wouldn't even make a very good log parser.
 * [ ] `div_or_else` - rust. Question - what about the other edge cases of `IEEE-754` - dividing by a minus number. Numerator is 0 etc. Can just decide/pass arg.
 
 ### Schema Helpers
-* [ ] `print_schema_as_code` - python.
+* [*] `print_schema_as_code` - python.
 * [ ] `schema_from_csv` - python. (is this just scan_csv(path).schema ?)
 * [ ] `complex_fields` - python.
 
