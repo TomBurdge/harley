@@ -90,7 +90,7 @@ impl ProcessIsNullOrBlanks for crate::is_null::NullOrBlankSeries <'_> {
     }
 }
 
-#[polars_expr(output_type=String)]
+#[polars_expr(output_type=Boolean)]
 fn is_null_or_blank(inputs: &[Series], kwargs:NullOrBlankKwargs) -> PolarsResult<Series> {
     let mut results = BooleanChunkedBuilder::new("null_or_blank", inputs[0].len());
     let series_parser = NullOrBlankSeries::from_kwargs(inputs, kwargs.all_white_space_as_null)?;
