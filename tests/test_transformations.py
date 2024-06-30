@@ -1,8 +1,10 @@
 import pytest
-from harley.transformations import snake_case_column_names
-from polars import DataFrame, LazyFrame
+from harley.transformations import snake_case_column_names, flatten_struct
+from polars import DataFrame, LazyFrame, Series, DataType
 from typing import Union
 from tests.conftest import polars_frames
+from polars.testing import assert_frame_equal
+from typing import List
 
 column_names = [
     ["CamelCase", "camel_case"],
@@ -40,7 +42,8 @@ column_names = [
     ["ABC123DEf456", "abc123d_ef456"],
 ]
 
-@pytest.mark.parametrize("frame_type",polars_frames)
+
+@pytest.mark.parametrize("frame_type", polars_frames)
 @pytest.mark.parametrize(
     "input_column, exp",
     column_names,
@@ -51,3 +54,44 @@ def test_snake_case_column_names(
     polars_frame = frame_type(data={input_column: range(10)})
     res = snake_case_column_names(polars_frame).columns
     assert res == [exp]
+
+@pytest.fixture()
+def data_with_struct() -> List[Series]:
+    data = [
+        Series(
+            "ratings",
+            [
+                {"movie": "Cars", "theatre": "NE", "avg_rating": 4.5},
+                {"movie": "Toy Story", "theatre": "ME", "avg_rating": 4.9},
+            ],
+            
+        ),
+        Series("name", ["George", "Yi Fong"]),
+    ]
+    return data
+
+@pytest.mark.parametrize("frame_type", polars_frames)
+def test_flatten_struct(frame_type: DataType, data_with_struct:List[Series]):
+    inp = frame_type(data_with_struct)
+    exp = DataFrame([
+        Series("name", ["George", "Yi Fong"]),
+        Series("ratings:movie", ["Cars", "Toy Story"]),
+        Series("ratings:theatre", ["NE", "ME"]),
+        Series("ratings:avg_rating", [4.5, 4.9]),
+    ])
+    if isinstance(res := flatten_struct(inp, "ratings"), LazyFrame):
+        res = res.collect()
+    assert_frame_equal(res, exp)
+
+@pytest.mark.parametrize("frame_type", polars_frames)
+def test_flatten_struct_separator(frame_type: DataType, data_with_struct:List[Series]):
+    inp = frame_type(data_with_struct)
+    exp = DataFrame([
+        Series("name", ["George", "Yi Fong"]),
+        Series("ratings_movie", ["Cars", "Toy Story"]),
+        Series("ratings_theatre", ["NE", "ME"]),
+        Series("ratings_avg_rating", [4.5, 4.9]),
+    ])
+    if isinstance(res := flatten_struct(inp, "ratings", "_"), LazyFrame):
+        res = res.collect()
+    assert_frame_equal(res, exp)
