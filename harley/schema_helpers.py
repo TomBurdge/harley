@@ -2,6 +2,10 @@ from typing import OrderedDict
 from polars import DataType
 
 def print_schema_as_code(schema: OrderedDict[str, DataType], prepend_pl: bool = False)-> str:
+    """
+    Print schema as valid code.
+    Optional `prepend_pl` flag for prepending 'pl.' to the column types.
+    """
     if prepend_pl:
         schema = OrderedDict(
         [
