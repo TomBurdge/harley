@@ -1,5 +1,5 @@
 from harley import column_to_list
-from harley.dataframe_helper import complex_fields
+from harley.dataframe_helper import nested_fields
 from polars import (
     Decimal,
     Float32,
@@ -55,7 +55,7 @@ def test_column_to_list(frame_type: str):
     assert exp == res
 
 
-def test_complex_fields():
+def test_nested_fields():
     all_column_types = [
         Array,
         List,
@@ -87,6 +87,6 @@ def test_complex_fields():
     schema = [
         ("col_" + str(i), col_type) for i, col_type in enumerate(all_column_types)
     ]
-    res = complex_fields(schema=schema)
+    res = nested_fields(schema=schema)
     exp = OrderedDict([("col_0", Array), ("col_1", List), ("col_2", Struct)])
     assert res == exp
