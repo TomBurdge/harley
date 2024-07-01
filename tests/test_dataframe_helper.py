@@ -1,12 +1,42 @@
 from harley import column_to_list
+from harley.dataframe_helper import nested_fields
+from polars import (
+    Decimal,
+    Float32,
+    Float64,
+    Int8,
+    Int16,
+    Int32,
+    Int64,
+    UInt8,
+    UInt32,
+    UInt64,
+    Date,
+    Datetime,
+    Duration,
+    Time,
+    Array,
+    List,
+    Struct,
+    String,
+    Categorical,
+    Enum,
+    Utf8,
+    Binary,
+    Boolean,
+    Null,
+    Object,
+    Unknown,
+)
 import pytest
 from datetime import datetime
 from tests.conftest import polars_frames
+from typing import OrderedDict
 from harley.dataframe_helper import two_columns_to_dictionary
 from polars import DataFrame
 from polars.testing import assert_frame_equal
 
-floats=[4.0, 5.0, 6.0, 7.0, 8.0]
+floats = [4.0, 5.0, 6.0, 7.0, 8.0]
 data = {
     "integer": [1, 2, 3, 4, 5],
     "date": [
@@ -21,11 +51,48 @@ data = {
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
-def test_column_to_list(frame_type:str):
+def test_column_to_list(frame_type: str):
     frame = frame_type(data)
     exp = floats
     res = column_to_list(frame, "float")
-    assert exp==res
+    assert exp == res
+
+
+def test_nested_fields():
+    all_column_types = [
+        Array,
+        List,
+        Struct,
+        Decimal,
+        Float32,
+        Float64,
+        Int8,
+        Int16,
+        Int32,
+        Int64,
+        UInt8,
+        UInt32,
+        UInt64,
+        Date,
+        Datetime,
+        Duration,
+        Time,
+        String,
+        Categorical,
+        Enum,
+        Utf8,
+        Binary,
+        Boolean,
+        Null,
+        Object,
+        Unknown,
+    ]
+    schema = [
+        ("col_" + str(i), col_type) for i, col_type in enumerate(all_column_types)
+    ]
+    res = nested_fields(schema=schema)
+    exp = OrderedDict([("col_0", Array), ("col_1", List), ("col_2", Struct)])
+    assert res == exp
 
 
 def test_two_columns_to_dictionary_passes():
