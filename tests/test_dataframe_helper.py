@@ -2,6 +2,9 @@ from harley import column_to_list
 import pytest
 from datetime import datetime
 from tests.conftest import polars_frames
+from harley.dataframe_helper import two_columns_to_dictionary
+from polars import DataFrame
+from polars.testing import assert_frame_equal
 
 floats=[4.0, 5.0, 6.0, 7.0, 8.0]
 data = {
@@ -23,3 +26,40 @@ def test_column_to_list(frame_type:str):
     exp = floats
     res = column_to_list(frame, "float")
     assert exp==res
+
+
+def test_two_columns_to_dictionary_passes():
+    inp_col_key_vals = [i for i in range(9)]
+    inp_col_key="inp_col_key"
+    inp_col_val_vals = [i for i in range(1, 10)]
+    inp_col_val="inp_col_val"
+    df = DataFrame({inp_col_key:inp_col_key_vals, inp_col_val:inp_col_val_vals})
+    exp = dict(zip(inp_col_key_vals, inp_col_val_vals))
+    res = two_columns_to_dictionary(df = df, key_col_name=inp_col_key, value_col_name=inp_col_val)
+    assert res==exp
+
+def test_two_columns_to_dictionary_raises_error_on_nested_keys():
+    inp_col_key_vals = [[123],[234]]
+    inp_col_key="inp_col_key"
+    inp_col_val_vals = [i for i in range( 2)]
+    inp_col_val="inp_col_val"
+    df = DataFrame({inp_col_key:inp_col_key_vals, inp_col_val:inp_col_val_vals})
+    with pytest.raises(ValueError):
+        two_columns_to_dictionary(df = df, key_col_name=inp_col_key, value_col_name=inp_col_val)
+
+@pytest.fixture()
+def duplicate_keys_df() -> DataFrame:
+    inp_col_key_vals = ["duplicate","duplicate", "not duplicate"]
+    inp_col_key="inp_col_key"
+    inp_col_val_vals = [i for i in range(3)]
+    inp_col_val="inp_col_val"
+    return DataFrame({inp_col_key:inp_col_key_vals, inp_col_val:inp_col_val_vals})
+
+def test_two_columns_to_dictionary_raises_error_on_duplicate_keys_by_default(duplicate_keys_df: DataFrame):
+    with pytest.raises(ValueError):
+        two_columns_to_dictionary(df= duplicate_keys_df, key_col_name="inp_col_key", value_col_name="inp_col_val", allow_duplicates_keys=False)
+
+def test_two_columns_to_dictionary_allows_duplicate_keys(duplicate_keys_df: DataFrame):
+    exp = {"duplicate":1, "not duplicate":2}
+    res= two_columns_to_dictionary(df= duplicate_keys_df, key_col_name="inp_col_key", value_col_name="inp_col_val", allow_duplicates_keys=True)
+    assert res == exp
