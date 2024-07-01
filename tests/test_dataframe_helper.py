@@ -1,8 +1,7 @@
 from harley import column_to_list
 import pytest
 from datetime import datetime
-from polars import DataFrame, LazyFrame, DataType
-from typing import List
+from tests.conftest import polars_frames
 
 floats=[4.0, 5.0, 6.0, 7.0, 8.0]
 data = {
@@ -18,7 +17,7 @@ data = {
 }
 
 
-@pytest.mark.parametrize("frame_type", [DataFrame, LazyFrame])
+@pytest.mark.parametrize("frame_type", polars_frames)
 def test_column_to_list(frame_type:str):
     frame = frame_type(data)
     exp = floats

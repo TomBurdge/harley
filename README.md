@@ -38,11 +38,11 @@ All functions, whether they should be implemented.
 * [ ] `array_choice` - rust. (interesting one, will be some way to do seed with a crate.)
 * `business_days_between` - covered by `workday_count` in `polars_xdt`.
 * `uuid5` - can cover in `faux_lars`.
-* [ ] `is_falsy` - rust.
-* [ ] `is_truthy` - rust.
-* [ ] `is_false` - rust.
-* [ ] `is_true` - rust.
-* [ ] `is_null_or_blank` - rust.
+* [*] `is_falsy` - rust.
+* [*] `is_truthy` - rust.
+* [*] `is_false` - rust.
+* [*] `is_true` - rust.
+* `is_null_or_blank` DONE - rust.
 * `is_not_in` - might be covered by native polars.
 * [ ] `null_between` - rust.
 

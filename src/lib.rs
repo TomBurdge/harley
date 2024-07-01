@@ -1,7 +1,9 @@
-mod expressions;
 mod utils;
-
-use expressions::columns_to_snake_case;
+mod is_null;
+mod is_booley;
+mod spaces;
+mod column_rename;
+use column_rename::columns_to_snake_case;
 
 #[cfg(target_os = "linux")]
 use jemallocator::Jemalloc;
