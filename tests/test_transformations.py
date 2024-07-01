@@ -55,6 +55,7 @@ def test_snake_case_column_names(
     res = snake_case_column_names(polars_frame).columns
     assert res == [exp]
 
+
 @pytest.fixture()
 def data_with_struct() -> List[Series]:
     data = [
@@ -64,34 +65,119 @@ def data_with_struct() -> List[Series]:
                 {"movie": "Cars", "theatre": "NE", "avg_rating": 4.5},
                 {"movie": "Toy Story", "theatre": "ME", "avg_rating": 4.9},
             ],
-            
         ),
         Series("name", ["George", "Yi Fong"]),
     ]
     return data
 
+
 @pytest.mark.parametrize("frame_type", polars_frames)
-def test_flatten_struct(frame_type: DataType, data_with_struct:List[Series]):
+def test_flatten_struct(frame_type: DataType, data_with_struct: List[Series]):
     inp = frame_type(data_with_struct)
-    exp = DataFrame([
-        Series("name", ["George", "Yi Fong"]),
-        Series("ratings:movie", ["Cars", "Toy Story"]),
-        Series("ratings:theatre", ["NE", "ME"]),
-        Series("ratings:avg_rating", [4.5, 4.9]),
-    ])
+    exp = DataFrame(
+        [
+            Series("name", ["George", "Yi Fong"]),
+            Series("ratings:movie", ["Cars", "Toy Story"]),
+            Series("ratings:theatre", ["NE", "ME"]),
+            Series("ratings:avg_rating", [4.5, 4.9]),
+        ]
+    )
     if isinstance(res := flatten_struct(inp, "ratings"), LazyFrame):
         res = res.collect()
     assert_frame_equal(res, exp)
 
+
 @pytest.mark.parametrize("frame_type", polars_frames)
-def test_flatten_struct_separator(frame_type: DataType, data_with_struct:List[Series]):
+def test_flatten_struct_do_not_drop(
+    frame_type: DataType, data_with_struct: List[Series]
+):
     inp = frame_type(data_with_struct)
-    exp = DataFrame([
-        Series("name", ["George", "Yi Fong"]),
-        Series("ratings_movie", ["Cars", "Toy Story"]),
-        Series("ratings_theatre", ["NE", "ME"]),
-        Series("ratings_avg_rating", [4.5, 4.9]),
-    ])
-    if isinstance(res := flatten_struct(inp, "ratings", "_"), LazyFrame):
+    exp = DataFrame(
+        [
+            Series("name", ["George", "Yi Fong"]),
+            Series("ratings:movie", ["Cars", "Toy Story"]),
+            Series("ratings:theatre", ["NE", "ME"]),
+            Series("ratings:avg_rating", [4.5, 4.9]),
+            Series(
+                "ratings",
+                [
+                    {"movie": "Cars", "theatre": "NE", "avg_rating": 4.5},
+                    {"movie": "Toy Story", "theatre": "ME", "avg_rating": 4.9},
+                ],
+            ),
+        ]
+    )
+    if isinstance(res := flatten_struct(inp, "ratings", drop_original_struct=False), LazyFrame):
+        res = res.collect()
+    assert_frame_equal(res, exp, check_column_order=False)
+
+
+@pytest.mark.parametrize("frame_type", polars_frames)
+def test_flatten_struct_separator(frame_type: DataType, data_with_struct: List[Series]):
+    inp = frame_type(data_with_struct)
+    exp = DataFrame(
+        [
+            Series("name", ["George", "Yi Fong"]),
+            Series("ratings_movie", ["Cars", "Toy Story"]),
+            Series("ratings_theatre", ["NE", "ME"]),
+            Series("ratings_avg_rating", [4.5, 4.9]),
+        ]
+    )
+    if isinstance(res := flatten_struct(inp, "ratings", separator="_"), LazyFrame):
         res = res.collect()
     assert_frame_equal(res, exp)
+
+
+@pytest.fixture()
+def nested_struct_data() -> dict:
+    data = {
+        "coords": [
+            {"x": {"z": 1, "a": {"b": 2}}, "y": 4},
+            {"x": {"z": 3, "a": {"b": 4}}, "y": 9},
+            {"x": {"z": 5, "a": {"b": 6}}, "y": 16},
+        ],
+        "multiply": [10, 2, 3],
+    }
+    return data
+
+
+@pytest.mark.parametrize("frame_type", polars_frames)
+def test_flatten_struct_recursive(
+    frame_type: DataType, nested_struct_data: List[Series]
+):
+    inp = frame_type(nested_struct_data)
+    exp = DataFrame(
+        [
+            Series("coords:x:z", [1, 3, 5]),
+            Series("coords:x:a:b", [2, 4, 6]),
+            Series("coords:y", [4, 9, 16]),
+            Series("multiply", [10, 2, 3]),
+        ]
+    )
+    if isinstance(
+        res := flatten_struct(df=inp, struct_columns="coords", recursive=True),
+        LazyFrame,
+    ):
+        res = res.collect()
+    assert_frame_equal(res, exp, check_column_order=False)
+
+
+@pytest.mark.parametrize("frame_type", polars_frames)
+def test_flatten_struct_recursive_limit(
+    frame_type: DataType, nested_struct_data: List[Series]
+):
+    inp = frame_type(nested_struct_data)
+    exp = DataFrame(
+        [
+            Series("coords:x:z", [1, 3, 5]),
+            Series("coords:x:a", [{"b": 2}, {"b": 4}, {"b": 6}]),
+            Series("coords:y", [4, 9, 16]),
+            Series("multiply", [10, 2, 3]),
+        ]
+    )
+    if isinstance(
+        res := flatten_struct(df=inp, struct_columns="coords", recursive=True, limit=1),
+        LazyFrame,
+    ):
+        res = res.collect()
+    assert_frame_equal(res, exp, check_column_order=False)
