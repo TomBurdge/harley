@@ -56,8 +56,9 @@ Wouldn't even make a very good log parser.
 
 ### Schema Helpers
 * [ ] `print_schema_as_code` - python.
-* `schema_from_csv` - python. Propose do not implement: should not be assigning schema with a csv. I have seen all sorts of nightmarish 'mapping'/'schema' files at work and I have seen enough to be convinced it is bad practice. code == code.
-* [ ] `complex_fields` - python.
+
+* `schema_from_csv` - python. Will not implement: should not be assigning schema with a csv. I have seen all sorts of nightmarish 'mapping'/'schema' files at work and I have seen enough to be convinced it is bad practice. code == code.
+* [*] `complex_fields` - python.
 
 ### Split columns
 * `split_col` - `quinn` function expects only one delimiter, which may not be true... I prefer how `split` polars does it, where it returns an array column. Propose not implement, or add but with an index position argument.
