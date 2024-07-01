@@ -15,7 +15,8 @@ else:
 
 def is_null_or_blank(expr: IntoExpr, all_white_space_as_null: bool = False) -> IntoExpr:
     """
-    Removes all whitespace from a string.
+    Returns True if null/blank/empty list.
+    Otherwise, False.
     """
     expr = parse_into_expr(expr)
     return register_plugin(
@@ -24,4 +25,56 @@ def is_null_or_blank(expr: IntoExpr, all_white_space_as_null: bool = False) -> I
         is_elementwise=True,
         lib=lib,
         kwargs = {"all_white_space_as_null":all_white_space_as_null}
+    )
+
+
+def is_falsey(expr: IntoExpr) -> IntoExpr:
+    """
+    Returns True if null/False, otherwise False.
+    """
+    expr = parse_into_expr(expr)
+    return register_plugin(
+        args=[expr],
+        symbol="is_falsey",
+        is_elementwise=True,
+        lib=lib,
+    )
+
+def is_false(expr: IntoExpr) -> IntoExpr:
+    """
+    Returns True if False, otherwise False.
+    Whitespace aware.
+    """
+    expr = parse_into_expr(expr)
+    return register_plugin(
+        args=[expr],
+        symbol="is_false",
+        is_elementwise=True,
+        lib=lib,
+    )
+
+def is_truthy(expr: IntoExpr) -> IntoExpr:
+    """
+    Returns True if True, otherwise False.
+    Whitespace aware.
+    """
+    expr = parse_into_expr(expr)
+    return register_plugin(
+        args=[expr],
+        symbol="is_truthy",
+        is_elementwise=True,
+        lib=lib,
+    )
+
+def is_true(expr: IntoExpr) -> IntoExpr:
+    """
+    Returns True if True, otherwise False.
+    Whitespace aware.
+    """
+    expr = parse_into_expr(expr)
+    return register_plugin(
+        args=[expr],
+        symbol="is_true",
+        is_elementwise=True,
+        lib=lib,
     )
