@@ -13,16 +13,16 @@ All functions, whether they should be implemented.
 #### append if schema identical
 * [ ] `append_if_schema_identical` - python.
 #### dataframe_helpers
-* [ ] `column_to_list` - python. (this is just polars `select`, `collect`, `to_list`, much more convenient than spark).
-* [ ] `two_columns_to_dictionary` - python
+* [*] `column_to_list` - python. (this is just polars `select`, `collect`, `to_list`, much more convenient than spark).
+* [*] `two_columns_to_dictionary` - python
 * `to_list_of_dictionaries` - in polars. (check)
 * [ ] `show_output_to_df` - rename to something like `dataframe_output_to_df` python/rust.
 * `create_df` - in polars native.
 
 #### dataframe validator
-* [ ] `validate_presence_of_columns` - python.
-* [ ] `validate_schema` - python.
-* [ ] `validate_absence_of_columns` - python.
+* [*] `validate_presence_of_columns` - python.
+* [*] `validate_schema` - python.
+* [*] `validate_absence_of_columns` - python.
 
 #### Functions
 * [ ] `single_space` - rust.
