@@ -11,18 +11,18 @@ Contains:
 All functions, whether they should be implemented.
 
 #### append if schema identical
-* [ ] `append_if_schema_identical` - python.
+* `append_if_schema_identical` - do not implement. `polars` append is strict on schema by default (separate namespace for diagonal append).
 #### dataframe_helpers
-* [ ] `column_to_list` - python. (this is just polars `select`, `collect`, `to_list`, much more convenient than spark).
-* [ ] `two_columns_to_dictionary` - python
+* [*] `column_to_list` - python. (this is just polars `select`, `collect`, `to_list`, much more convenient than spark).
+* [*] `two_columns_to_dictionary` - python
 * `to_list_of_dictionaries` - in polars. (check)
-* [ ] `show_output_to_df` - rename to something like `dataframe_output_to_df` python/rust.
+* `show_output_to_df` - polars already has [init_repr_to_df](https://docs.pola.rs/api/python/stable/reference/api/polars.from_repr.html).
 * `create_df` - in polars native.
 
 #### dataframe validator
-* [ ] `validate_presence_of_columns` - python.
-* [ ] `validate_schema` - python.
-* [ ] `validate_absence_of_columns` - python.
+* [*] `validate_presence_of_columns` - python.
+* [*] `validate_schema` - python.
+* [*] `validate_absence_of_columns` - python.
 
 #### Functions
 * [ ] `single_space` - rust.
@@ -56,7 +56,8 @@ Wouldn't even make a very good log parser.
 
 ### Schema Helpers
 * [ ] `print_schema_as_code` - python.
-* [ ] `schema_from_csv` - python. (is this just scan_csv(path).schema ?)
+
+* `schema_from_csv` - python. Will not implement: should not be assigning schema with a csv. I have seen all sorts of nightmarish 'mapping'/'schema' files at work and I have seen enough to be convinced it is bad practice. code == code.
 * [*] `complex_fields` - python.
 
 ### Split columns
