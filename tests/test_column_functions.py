@@ -25,9 +25,9 @@ from polars.testing import assert_frame_equal
             4.1,
         ),
             (
-            [[12, 20, 44, 32], [14, 26, 41, 9]],
-            [True, False, True, False],
-            3.9,
+            [[12, 20, 44, 32], [14, 26, 43, 9]],
+            [False, False, True, False],
+            1.9,
         ),
     ),
 )
