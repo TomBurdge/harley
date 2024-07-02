@@ -34,7 +34,7 @@ All functions, whether they should be implemented.
 * [ ] `multi_equals` - rust.
 * `week_start_date` - might be covered by `polars_xdt`.
 * `week_end_date` see `week_start_date`.
-* [ ] `approx_equal` - rust.
+* [x] `approx_equal` - rust.
 * [ ] `array_choice` - rust. (interesting one, will be some way to do seed with a crate.)
 * `business_days_between` - covered by `workday_count` in `polars_xdt`.
 * `uuid5` - can cover in `faux_lars`.
