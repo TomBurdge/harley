@@ -38,13 +38,13 @@ All functions, whether they should be implemented.
 * [ ] `array_choice` - rust. (interesting one, will be some way to do seed with a crate.)
 * `business_days_between` - covered by `workday_count` in `polars_xdt`.
 * `uuid5` - can cover in `faux_lars`.
-* [*] `is_falsy` - rust.
-* [*] `is_truthy` - rust.
-* [*] `is_false` - rust.
-* [*] `is_true` - rust.
+* [x] `is_falsy` - rust.
+* [x] `is_truthy` - rust.
+* [x] `is_false` - rust.
+* [x] `is_true` - rust.
 * `is_null_or_blank` DONE - rust.
 * `is_not_in` - might be covered by native polars.
-* [ ] `null_between` - rust.
+* [x] `null_between` - rust.
 
 ### Keyword Finder
 Propose skipping. Undocumented.
@@ -58,7 +58,7 @@ Wouldn't even make a very good log parser.
 * [ ] `print_schema_as_code` - python.
 
 * `schema_from_csv` - python. Will not implement: should not be assigning schema with a csv. I have seen all sorts of nightmarish 'mapping'/'schema' files at work and I have seen enough to be convinced it is bad practice. code == code.
-* [*] `complex_fields` - python.
+* [x] `complex_fields` - python.
 
 ### Split columns
 * `split_col` - `quinn` function expects only one delimiter, which may not be true... I prefer how `split` polars does it, where it returns an array column. Propose not implement, or add but with an index position argument.
