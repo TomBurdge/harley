@@ -31,7 +31,7 @@ All functions, whether they should be implemented.
 * [x] `remove_non_word_characters` - rust.
 * `exists` - Propose not implement bc don't want to allow for an arbitrary python function as the callable. This requires inefficient map which will tank performance.
 * `forall` - see `exists`.
-* [ ] `multi_equals` - rust.
+* [x] `multi_equals` - rust.
 * `week_start_date` - might be covered by `polars_xdt`.
 * `week_end_date` see `week_start_date`.
 * [ ] `approx_equal` - rust.
