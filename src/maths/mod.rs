@@ -17,23 +17,19 @@ where
     T: PolarsNumericType,
     T::Native: Signed,
 {
-    let res = divid
+    divid
     .into_iter()
     .zip(divis.into_iter())
     .map(|(divid_opt, divis_opt)|{
         divid_opt.and_then(|dividend| divis_opt.map(|divisor| if divisor == zero { or_else } else { dividend / divisor }))
     })
-    .collect();
-    println!("{:?}", &res);
-    res
+    .collect()
 }
 
 #[polars_expr(output_type_func=same_output_type)]
 fn div_or_else(inputs: &[Series], kwargs:OrElseKwargs) -> PolarsResult<Series> {
     let divid = &inputs[0];
     let divis = &inputs[1];
-    println!("{:?}", &divid);
-    println!("{:?}", &divis);
     let or_else = kwargs.or_else;
     match (divis.dtype(), divid.dtype()) {
         (DataType::Float64, _)|(_, DataType::Float64) => Ok(impl_div_or_else(divid.cast(&DataType::Float64)?.f64().unwrap(),divis.cast(&DataType::Float64)?.f64().unwrap(),or_else, 0 as f64).into_series()),
