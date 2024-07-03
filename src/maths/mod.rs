@@ -63,9 +63,6 @@ fn div_or_else(inputs: &[Series], kwargs: OrElseKwargs) -> PolarsResult<Series> 
         )
         .into_series()),
         (DataType::Int64, _) | (_, DataType::Int64) => {
-            if !is_whole_number(or_else) {
-                polars_bail!(InvalidOperation: "or_else value must be a whole number for integer columns.")
-            }
             Ok(impl_div_or_else(
             divid.cast(&DataType::Int64)?.i64().unwrap(),
             divis.cast(&DataType::Int64)?.i64().unwrap(),
@@ -75,9 +72,6 @@ fn div_or_else(inputs: &[Series], kwargs: OrElseKwargs) -> PolarsResult<Series> 
         .into_series())
         },
         (DataType::Int32, _) | (_, DataType::Int32) => {
-            if !is_whole_number(or_else) {
-                polars_bail!(InvalidOperation: "or_else value must be a whole number for integer columns.")
-            }
             Ok(impl_div_or_else(
             divid.cast(&DataType::Int32)?.i32().unwrap(),
             divis.cast(&DataType::Int32)?.i32().unwrap(),

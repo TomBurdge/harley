@@ -41,13 +41,3 @@ def test_div_or_else_alt_or_else(frame_type: DataType):
     ):
         res = res.collect()
     assert_frame_equal(res, exp)
-
-@pytest.mark.parametrize("frame_type", polars_frames)
-def test_div_or_else_err_on_int_non_whole_or_else(frame_type:DataType):
-    inp = frame_type({"dividend": [1, 1, 0, None], "divisor": [1, 1, 0, None]})
-    with pytest.raises(ComputeError):
-        if isinstance(
-        res := inp.select(res=div_or_else(dividend="dividend", divisor="divisor", or_else=5.5)),
-        LazyFrame,
-        ):
-            res = res.collect()
