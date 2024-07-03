@@ -44,6 +44,9 @@ fn div_or_else(inputs: &[Series], kwargs: OrElseKwargs) -> PolarsResult<Series> 
     let divid = &inputs[0];
     let divis = &inputs[1];
     let or_else = kwargs.or_else;
+    fn is_whole_number(x: f64) -> bool {
+        x % 1.0 == 0.0
+    }
     match (divis.dtype(), divid.dtype()) {
         (DataType::Float64, _) | (_, DataType::Float64) => Ok(impl_div_or_else(
             divid.cast(&DataType::Float64)?.f64().unwrap(),
@@ -59,20 +62,30 @@ fn div_or_else(inputs: &[Series], kwargs: OrElseKwargs) -> PolarsResult<Series> 
             0 as f32,
         )
         .into_series()),
-        (DataType::Int64, _) | (_, DataType::Int64) => Ok(impl_div_or_else(
+        (DataType::Int64, _) | (_, DataType::Int64) => {
+            if !is_whole_number(or_else) {
+                polars_bail!(InvalidOperation: "or_else value must be a whole number for integer columns.")
+            }
+            Ok(impl_div_or_else(
             divid.cast(&DataType::Int64)?.i64().unwrap(),
             divis.cast(&DataType::Int64)?.i64().unwrap(),
             or_else.round() as i64,
             0 as i64,
         )
-        .into_series()),
-        (DataType::Int32, _) | (_, DataType::Int32) => Ok(impl_div_or_else(
+        .into_series())
+        },
+        (DataType::Int32, _) | (_, DataType::Int32) => {
+            if !is_whole_number(or_else) {
+                polars_bail!(InvalidOperation: "or_else value must be a whole number for integer columns.")
+            }
+            Ok(impl_div_or_else(
             divid.cast(&DataType::Int32)?.i32().unwrap(),
             divis.cast(&DataType::Int32)?.i32().unwrap(),
             or_else.round() as i32,
             0 as i32,
         )
-        .into_series()),
+        .into_series())
+    },
         _ => {
             polars_bail!(InvalidOperation:format!("dtypes not \
             supported for div_or_else, expected Int32, Int64, Float32, Float64."))
