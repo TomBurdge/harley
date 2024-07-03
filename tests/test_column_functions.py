@@ -10,20 +10,21 @@ from harley.column_functions import multi_equals
 @pytest.mark.parametrize(
     "inp, exp",
     (
-        (([17], [None], [94]), True),
-        (([17], [None], [10]), False),
-        (([None], [10], [5]), True),
-        (([None], [10], [88]), False),
-        (([10], [15], [11]), True),
-        (([None], [None], [11]), False),
-        (([3], [5], [None]), False),
-        (([None], [None], [None]), False),
+        (({"lower_age":[17], "upper_age":[None], "age":[94]}), True),
+        (({"lower_age":[17],"upper_age": [None], "age":[10]}), False),
+        (({"lower_age":[None],"upper_age": [10], "age":[5]}), True),
+        (({"lower_age":[None],"upper_age": [10], "age":[88]}), False),
+        (({"lower_age":[10], "upper_age":[15], "age":[11]}), True),
+        (({"lower_age":[None], "upper_age":[None],"age": [11]}), False),
+        (({"lower_age":[3], "upper_age":[5], "age":[None]}), False),
+        (({"lower_age":[3], "upper_age":[3], "age":[None]}), False),
+        (({"lower_age":[3], "upper_age":[3], "age":[3]}), True),
+        (({"lower_age":[3], "upper_age":[4], "age":[5]}), False),
+        (({"lower_age":[None], "upper_age":[None], "age":[None]}), False),
     ),
 )
 def test_null_between(frame_type: DataType, inp: Tuple[Any], exp: bool):
-    schema = ["lower_age", "upper_age", "age"]
-    data = dict(zip(schema, inp))
-    df = frame_type(data)
+    df = frame_type(inp)
     exp = DataFrame({"res": [exp]})
     if isinstance(
         res := df.select(
