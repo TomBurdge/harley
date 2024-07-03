@@ -2,6 +2,7 @@ mod utils;
 mod is_null;
 mod is_booley;
 mod spaces;
+mod maths;
 mod column_rename;
 use column_rename::columns_to_snake_case;
 
