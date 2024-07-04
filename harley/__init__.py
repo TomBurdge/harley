@@ -10,6 +10,7 @@ from harley.dataframe_helper import column_to_list
 from harley.transformations import snake_case_column_names
 from harley.string_functions import single_space, remove_all_whitespace, remove_non_word_characters
 from harley.to_boolean import is_null_or_blank
+from harley.maths import div_or_else
 
 if TYPE_CHECKING:
     from polars.type_aliases import IntoExpr
