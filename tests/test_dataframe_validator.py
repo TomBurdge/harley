@@ -56,8 +56,6 @@ def test_validate_schema_raises_when_struct_field_missing(
         validate_schema(source_df, required_schema)
 
 
-age_data = {}
-
 
 @pytest.mark.parametrize("frame_type, dict_type", pytest_dict_frame_parameters)
 def test_validate_schema_does_nothing_when_schema_matches(
