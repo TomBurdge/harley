@@ -24,7 +24,6 @@ where
 fn approx_equal(inputs: &[Series], kwargs: ThresholdKwargs) -> PolarsResult<Series> {
     let s = &inputs[0] - &inputs[1];
     let threshold = kwargs.threshold;
-    // need to handle the precision better... just cast to float when receive?
     match s.dtype() {
         DataType::Int32 => Ok(impl_approx_equal_numeric(s.i32().unwrap(), threshold.floor() as i32).into_series()),
         DataType::Int64 => Ok(impl_approx_equal_numeric(s.i64().unwrap(), threshold.floor() as i64).into_series()),
