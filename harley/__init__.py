@@ -14,6 +14,7 @@ from harley.string_functions import (
     remove_non_word_characters,
 )
 from harley.to_boolean import is_null_or_blank
+from harley.maths import div_or_else
 
 if TYPE_CHECKING:
     from polars.type_aliases import IntoExpr
