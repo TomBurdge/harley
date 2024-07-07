@@ -176,7 +176,7 @@ def test_flatten_struct_recursive_limit(
         ]
     )
     if isinstance(
-        res := flatten_struct(df=inp, struct_columns="coords", recursive=True, limit=1),
+        res := flatten_struct(df=inp, struct_columns="coords", recursive=True, limit=2),
         LazyFrame,
     ):
         res = res.collect()
