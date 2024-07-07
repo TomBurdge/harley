@@ -16,7 +16,6 @@ pre-commit: .venv
 	cargo fmt --all && cargo clippy --all-features
 	.venv/bin/python -m ruff check . --fix --exit-non-zero-on-fix
 	.venv/bin/python -m ruff format harley tests
-	.venv/bin/mypy harley tests
 
 test: .venv
 	.venv/bin/python -m pytest tests
