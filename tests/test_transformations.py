@@ -1,8 +1,8 @@
 import pytest
 from harley.transformations import snake_case_column_names, flatten_struct
-from polars import DataFrame, LazyFrame, Series, DataType
+from polars import DataFrame, LazyFrame, Series
 from typing import Union
-from tests.conftest import polars_frames
+from harley.utils import polars_frames
 from polars.testing import assert_frame_equal
 from typing import List
 
@@ -72,7 +72,9 @@ def data_with_struct() -> List[Series]:
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
-def test_flatten_struct(frame_type: DataType, data_with_struct: List[Series]):
+def test_flatten_struct(
+    frame_type: Union[DataFrame, LazyFrame], data_with_struct: List[Series]
+):
     inp = frame_type(data_with_struct)
     exp = DataFrame(
         [
@@ -89,7 +91,7 @@ def test_flatten_struct(frame_type: DataType, data_with_struct: List[Series]):
 
 @pytest.mark.parametrize("frame_type", polars_frames)
 def test_flatten_struct_do_not_drop(
-    frame_type: DataType, data_with_struct: List[Series]
+    frame_type: Union[DataFrame, LazyFrame], data_with_struct: List[Series]
 ):
     inp = frame_type(data_with_struct)
     exp = DataFrame(
@@ -107,13 +109,17 @@ def test_flatten_struct_do_not_drop(
             ),
         ]
     )
-    if isinstance(res := flatten_struct(inp, "ratings", drop_original_struct=False), LazyFrame):
+    if isinstance(
+        res := flatten_struct(inp, "ratings", drop_original_struct=False), LazyFrame
+    ):
         res = res.collect()
     assert_frame_equal(res, exp, check_column_order=False)
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
-def test_flatten_struct_separator(frame_type: DataType, data_with_struct: List[Series]):
+def test_flatten_struct_separator(
+    frame_type: Union[DataFrame, LazyFrame], data_with_struct: List[Series]
+):
     inp = frame_type(data_with_struct)
     exp = DataFrame(
         [
@@ -143,7 +149,7 @@ def nested_struct_data() -> dict:
 
 @pytest.mark.parametrize("frame_type", polars_frames)
 def test_flatten_struct_recursive(
-    frame_type: DataType, nested_struct_data: List[Series]
+    frame_type: Union[DataFrame, LazyFrame], nested_struct_data: List[Series]
 ):
     inp = frame_type(nested_struct_data)
     exp = DataFrame(
@@ -164,7 +170,7 @@ def test_flatten_struct_recursive(
 
 @pytest.mark.parametrize("frame_type", polars_frames)
 def test_flatten_struct_recursive_limit(
-    frame_type: DataType, nested_struct_data: List[Series]
+    frame_type: Union[DataFrame, LazyFrame], nested_struct_data: List[Series]
 ):
     inp = frame_type(nested_struct_data)
     exp = DataFrame(
