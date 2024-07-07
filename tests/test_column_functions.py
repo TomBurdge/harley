@@ -42,7 +42,8 @@ def test_approx_equal(
     data = frame_type(dict(zip(schema, inp)))
     exp = DataFrame({"res":exp})
     if isinstance(res := data.select(res = approx_equal(col_1 ="left", col_2="right", threshold=thresh)), LazyFrame):
-
+        res = res.collect()
+    assert_frame_equal(res, exp)
 
 @pytest.mark.parametrize("frame_type", polars_frames)
 @pytest.mark.parametrize(
