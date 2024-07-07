@@ -20,11 +20,14 @@ def null_between(col: str, lower: str, upper: str) -> Expr:
 def multi_equals(cols: List[str], val: Any) -> Expr:
     query = [pl.col(name) == val for name in cols]
     return pl.all_horizontal(query)
+
+
 from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING, Union
 import polars as pl
 from harley.utils import parse_into_expr, register_plugin, parse_version
+
 if TYPE_CHECKING:
     from polars.type_aliases import IntoExpr
 if parse_version(pl.__version__) < parse_version("0.20.16"):
@@ -35,9 +38,11 @@ else:
     lib = Path(__file__).parent
 
 
-def approx_equal(col_1: IntoExpr,col_2:IntoExpr, threshold: Union[float, int]) -> IntoExpr:
+def approx_equal(
+    col_1: IntoExpr, col_2: IntoExpr, threshold: Union[float, int]
+) -> IntoExpr:
     """
-    Returns True if between 
+    Returns True if between
     """
     col_1 = parse_into_expr(col_1)
     col_2 = parse_into_expr(col_2)
@@ -46,5 +51,5 @@ def approx_equal(col_1: IntoExpr,col_2:IntoExpr, threshold: Union[float, int]) -
         symbol="approx_equal",
         is_elementwise=True,
         lib=lib,
-        kwargs = {"threshold":float(threshold)}
+        kwargs={"threshold": float(threshold)},
     )
