@@ -67,7 +67,7 @@ Wouldn't even make a very good log parser.
 * `with_some_columns_renamed` see `with_columns_renamed`.
 * `snake_case_col_names` python. DONE. Needs more robust tests than `quinn`.
 * `sort_columns` I think this is covered by polars sort?
-* [ ] `flatten_struct` python.
+* [*] `flatten_struct` python.
 * `flatten_map` There is no `map` type in polars.
 * `flatten_dataframe` Could possibly not implement, I don't think this handles things like deeply nested structs; less robust than it sounds. Nested structs exist in pyspark but I'm not sure in polars...
 

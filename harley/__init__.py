@@ -7,7 +7,7 @@ import polars as pl
 
 from harley.utils import parse_into_expr, register_plugin, parse_version
 from harley.dataframe_helper import column_to_list
-from harley.transformations import snake_case_column_names
+from harley.transformations import snake_case_column_names, flatten_struct
 from harley.string_functions import (
     single_space,
     remove_all_whitespace,
@@ -35,4 +35,5 @@ __all__ = [
     "is_null_or_blank",
     "snake_case_column_names",
     "print_schema_as_code",
+    "flatten_struct",
 ]
