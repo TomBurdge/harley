@@ -1,6 +1,10 @@
+from __future__ import annotations
 from polars import Expr
 import polars as pl
 from typing import Any, List
+from pathlib import Path
+from typing import TYPE_CHECKING, Union
+from harley.utils import parse_into_expr, register_plugin, parse_version
 
 
 def null_between(col: str, lower: str, upper: str) -> Expr:
@@ -21,12 +25,6 @@ def multi_equals(cols: List[str], val: Any) -> Expr:
     query = [pl.col(name) == val for name in cols]
     return pl.all_horizontal(query)
 
-
-from __future__ import annotations
-from pathlib import Path
-from typing import TYPE_CHECKING, Union
-import polars as pl
-from harley.utils import parse_into_expr, register_plugin, parse_version
 
 if TYPE_CHECKING:
     from polars.type_aliases import IntoExpr
