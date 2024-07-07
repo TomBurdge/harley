@@ -15,6 +15,7 @@ from harley.string_functions import (
 )
 from harley.to_boolean import is_null_or_blank
 from harley.schema_helpers import print_schema_as_code
+from harley.maths import div_or_else
 
 if TYPE_CHECKING:
     from polars.type_aliases import IntoExpr
@@ -36,4 +37,5 @@ __all__ = [
     "snake_case_column_names",
     "print_schema_as_code",
     "flatten_struct",
+    "div_or_else",
 ]

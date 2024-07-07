@@ -52,7 +52,7 @@ Wouldn't even make a very good log parser.
 
 ### math(s)
 * `rand_laplace` - generate random numbers with `Laplace(mu, beta)` - put into `faux_lars` if is worthwhile.
-* [ ] `div_or_else` - rust. Question - what about the other edge cases of `IEEE-754` - dividing by a minus number. Numerator is 0 etc. Can just decide/pass arg.
+* [x] `div_or_else` - rust. Question - what about the other edge cases of `IEEE-754` - dividing by a minus number. Numerator is 0 etc. Can just decide/pass arg.
 
 ### Schema Helpers
 * [x] `print_schema_as_code` - python.
