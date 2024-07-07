@@ -44,9 +44,6 @@ fn div_or_else(inputs: &[Series], kwargs: OrElseKwargs) -> PolarsResult<Series> 
     let divid = &inputs[0];
     let divis = &inputs[1];
     let or_else = kwargs.or_else;
-    fn is_whole_number(x: f64) -> bool {
-        x % 1.0 == 0.0
-    }
     match (divis.dtype(), divid.dtype()) {
         (DataType::Float64, _) | (_, DataType::Float64) => Ok(impl_div_or_else(
             divid.cast(&DataType::Float64)?.f64().unwrap(),
