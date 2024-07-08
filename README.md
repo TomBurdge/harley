@@ -42,7 +42,7 @@ All functions, whether they should be implemented.
 * [x] `is_truthy` - rust.
 * [x] `is_false` - rust.
 * [x] `is_true` - rust.
-* `is_null_or_blank` DONE - rust.
+* [x] `is_null_or_blank` - rust.
 * `is_not_in` - might be covered by native polars.
 * [x] `null_between` - rust.
 
@@ -56,7 +56,6 @@ Wouldn't even make a very good log parser.
 
 ### Schema Helpers
 * [ ] `print_schema_as_code` - python.
-
 * `schema_from_csv` - python. Will not implement: should not be assigning schema with a csv. I have seen all sorts of nightmarish 'mapping'/'schema' files at work and I have seen enough to be convinced it is bad practice. code == code.
 * [x] `complex_fields` - python.
 
@@ -66,9 +65,9 @@ Wouldn't even make a very good log parser.
 ### Transformations
 * `with_columns_renamed` - covered by `polars.DataFrame|LazyFrame.rename` in polars.
 * `with_some_columns_renamed` see `with_columns_renamed`.
-* `snake_case_col_names` python. DONE. Needs more robust tests than `quinn`.
+* [x] `snake_case_col_names` python. Needs more robust tests than `quinn`.
 * `sort_columns` I think this is covered by polars sort?
-* [*] `flatten_struct` python.
+* [x] `flatten_struct` python.
 * `flatten_map` There is no `map` type in polars.
 * `flatten_dataframe` Could possibly not implement, I don't think this handles things like deeply nested structs; less robust than it sounds. Nested structs exist in pyspark but I'm not sure in polars...
 
