@@ -72,6 +72,7 @@ def data_with_struct() -> List[Series]:
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct(frame_type: DataType, data_with_struct: List[Series]):
     inp = frame_type(data_with_struct)
     exp = DataFrame(
@@ -88,6 +89,7 @@ def test_flatten_struct(frame_type: DataType, data_with_struct: List[Series]):
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct_do_not_drop(
     frame_type: DataType, data_with_struct: List[Series]
 ):
@@ -113,6 +115,7 @@ def test_flatten_struct_do_not_drop(
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct_separator(frame_type: DataType, data_with_struct: List[Series]):
     inp = frame_type(data_with_struct)
     exp = DataFrame(
@@ -142,6 +145,7 @@ def nested_struct_data() -> dict:
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct_recursive(
     frame_type: DataType, nested_struct_data: List[Series]
 ):
@@ -163,6 +167,7 @@ def test_flatten_struct_recursive(
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct_recursive_limit(
     frame_type: DataType, nested_struct_data: List[Series]
 ):
