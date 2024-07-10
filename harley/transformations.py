@@ -1,11 +1,15 @@
 from harley.utils import PolarsFrame
 from .harley import columns_to_snake_case
 from typing import Union, List
-from polars import col, Struct
+from polars import col, Struct, LazyFrame
 
 
 def snake_case_column_names(df: PolarsFrame) -> PolarsFrame:
-    new_col_names = columns_to_snake_case(df.columns)
+    if isinstance(df, LazyFrame):
+        all_column_names = df.collect_schema().names()
+    else:
+        all_column_names = df.columns
+    new_col_names = columns_to_snake_case(all_column_names)
     return df.rename(new_col_names)
 
 
