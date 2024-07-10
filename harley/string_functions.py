@@ -53,3 +53,15 @@ def remove_non_word_characters(expr: IntoExpr) -> IntoExpr:
         is_elementwise=True,
         lib=lib,
     )
+
+def anti_trim(expr: List[IntoExpr]) -> IntoExpr:
+    """
+    Replaces all whitespace to a single space from a string, then trims leading and trailing spaces.
+    """
+    expr = parse_into_expr(expr)
+    return register_plugin(
+        args=[expr],
+        symbol="anti_trim",
+        is_elementwise=True,
+        lib=lib,
+    )
