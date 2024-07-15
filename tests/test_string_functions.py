@@ -24,6 +24,7 @@ def test_single_space(lazy: bool):
         frame = frame.collect()
     assert_series_equal(frame["actual"], frame["expected"], check_names=False)
 
+
 @pytest.mark.parametrize("lazy", [True, False])
 def test_remove_all_whitespace(lazy: bool):
     string_data = [
@@ -40,6 +41,7 @@ def test_remove_all_whitespace(lazy: bool):
     if lazy:
         frame = frame.collect()
     assert_series_equal(frame["actual"], frame["expected"], check_names=False)
+
 
 @pytest.mark.parametrize("lazy", [True, False])
 def test_remove_non_space_characters(lazy: bool):

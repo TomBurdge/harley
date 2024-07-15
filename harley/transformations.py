@@ -1,5 +1,5 @@
 from harley.utils import PolarsFrame
-from .harley import columns_to_snake_case
+from .harley import columns_to_snake_case  # noqa
 from typing import Union, List
 from polars import col, Struct
 
@@ -39,11 +39,11 @@ def flatten_struct(
         df = df.drop(struct_columns)
     if recursive and not limit == 0:
         # empty list is Falsey
-        if (new_unnested_columns := [
+        if new_unnested_columns := [
             col
             for col, dtype in df.select(new_col_names).schema.items()
             if isinstance(dtype, Struct)
-        ]):
+        ]:
             df = flatten_struct(
                 df=df,
                 struct_columns=new_unnested_columns,

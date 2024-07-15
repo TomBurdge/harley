@@ -30,6 +30,7 @@ def single_space(expr: IntoExpr) -> IntoExpr:
         lib=lib,
     )
 
+
 def remove_all_whitespace(expr: IntoExpr) -> IntoExpr:
     """
     Removes all whitespace from a string.
@@ -41,6 +42,7 @@ def remove_all_whitespace(expr: IntoExpr) -> IntoExpr:
         is_elementwise=True,
         lib=lib,
     )
+
 
 def remove_non_word_characters(expr: IntoExpr) -> IntoExpr:
     """
