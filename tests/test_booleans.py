@@ -1,9 +1,10 @@
 import pytest
-from tests.conftest import polars_frames
+from harley.utils import polars_frames
 from harley.to_boolean import is_null_or_blank, is_true, is_truthy, is_false, is_falsey
-from polars import DataFrame, DataType, LazyFrame
+from polars import DataFrame, LazyFrame
 from polars.testing import assert_frame_equal
-from typing import List, Callable
+from typing import List, Callable, Union
+
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
@@ -16,7 +17,10 @@ from typing import List, Callable
     ],
 )
 def test_is_null_or_blank(
-    frame_type: DataType, inp: List, exp: List, all_white_space_as_null: bool
+    frame_type: Union[DataFrame, LazyFrame],
+    inp: List,
+    exp: List,
+    all_white_space_as_null: bool,
 ):
     data = frame_type({"value": inp})
     if isinstance(
@@ -30,7 +34,9 @@ def test_is_null_or_blank(
 
 @pytest.mark.parametrize("frame_type", polars_frames)
 @pytest.mark.parametrize("tested_function", [is_truthy, is_true])
-def test_is_true_truthy(frame_type: DataType, tested_function: Callable):
+def test_is_true_truthy(
+    frame_type: Union[DataFrame, LazyFrame], tested_function: Callable
+):
     inp = [True, False, None]
     exp = DataFrame({"res": [True, False, False]})
     data = frame_type({"value": inp})
@@ -40,7 +46,7 @@ def test_is_true_truthy(frame_type: DataType, tested_function: Callable):
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
-def test_is_false(frame_type: DataType):
+def test_is_false(frame_type: Union[DataFrame, LazyFrame]):
     inp = [True, False, None]
     exp = DataFrame({"res": [False, True, False]})
     data = frame_type({"value": inp})
@@ -50,7 +56,7 @@ def test_is_false(frame_type: DataType):
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
-def test_is_falsey(frame_type: DataType):
+def test_is_falsey(frame_type: Union[DataFrame, LazyFrame]):
     inp = [True, False, None]
     exp = DataFrame({"res": [False, True, True]})
     data = frame_type({"value": inp})

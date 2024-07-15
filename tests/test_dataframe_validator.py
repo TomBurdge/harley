@@ -9,7 +9,7 @@ from harley.dataframe_validator import (
 )
 import pytest
 from typing import OrderedDict, Union, Dict
-from tests.conftest import polars_frames
+from harley.utils import polars_frames
 
 age_name_data = {"age": [1, 2, 3], "name": ["jose", "li", "luisa"]}
 

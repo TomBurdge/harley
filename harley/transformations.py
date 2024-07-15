@@ -1,5 +1,5 @@
 from harley.utils import PolarsFrame
-from .harley import columns_to_snake_case
+from .harley import columns_to_snake_case  # noqa
 from typing import Union, List
 from polars import col, Struct
 

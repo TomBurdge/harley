@@ -27,14 +27,14 @@ from polars import (
     Null,
     Object,
     Unknown,
+    LazyFrame,
 )
 import pytest
 from datetime import datetime
-from tests.conftest import polars_frames
-from typing import OrderedDict
+from harley.utils import polars_frames
+from typing import OrderedDict, Union
 from harley.dataframe_helper import two_columns_to_dictionary
 from polars import DataFrame
-from polars.testing import assert_frame_equal
 
 floats = [4.0, 5.0, 6.0, 7.0, 8.0]
 data = {
@@ -51,7 +51,7 @@ data = {
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
-def test_column_to_list(frame_type: str):
+def test_column_to_list(frame_type: Union[DataFrame, LazyFrame]):
     frame = frame_type(data)
     exp = floats
     res = column_to_list(frame, "float")

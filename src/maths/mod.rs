@@ -24,7 +24,7 @@ where
 {
     divid
         .into_iter()
-        .zip(divis.into_iter())
+        .zip(divis)
         .map(|(divid_opt, divis_opt)| {
             divid_opt.and_then(|dividend| {
                 divis_opt.map(|divisor| {
@@ -59,24 +59,20 @@ fn div_or_else(inputs: &[Series], kwargs: OrElseKwargs) -> PolarsResult<Series> 
             0 as f32,
         )
         .into_series()),
-        (DataType::Int64, _) | (_, DataType::Int64) => {
-            Ok(impl_div_or_else(
+        (DataType::Int64, _) | (_, DataType::Int64) => Ok(impl_div_or_else(
             divid.cast(&DataType::Int64)?.i64().unwrap(),
             divis.cast(&DataType::Int64)?.i64().unwrap(),
             or_else.round() as i64,
-            0 as i64,
+            0_i64,
         )
-        .into_series())
-        },
-        (DataType::Int32, _) | (_, DataType::Int32) => {
-            Ok(impl_div_or_else(
+        .into_series()),
+        (DataType::Int32, _) | (_, DataType::Int32) => Ok(impl_div_or_else(
             divid.cast(&DataType::Int32)?.i32().unwrap(),
             divis.cast(&DataType::Int32)?.i32().unwrap(),
             or_else.round() as i32,
-            0 as i32,
+            0_i32,
         )
-        .into_series())
-    },
+        .into_series()),
         _ => {
             polars_bail!(InvalidOperation:format!("dtypes not \
             supported for div_or_else, expected Int32, Int64, Float32, Float64."))
