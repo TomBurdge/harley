@@ -107,7 +107,9 @@ def test_flatten_struct_do_not_drop(
             ),
         ]
     )
-    if isinstance(res := flatten_struct(inp, "ratings", drop_original_struct=False), LazyFrame):
+    if isinstance(
+        res := flatten_struct(inp, "ratings", drop_original_struct=False), LazyFrame
+    ):
         res = res.collect()
     assert_frame_equal(res, exp, check_column_order=False)
 

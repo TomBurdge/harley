@@ -13,6 +13,7 @@ from tests.conftest import polars_frames
 
 age_name_data = {"age": [1, 2, 3], "name": ["jose", "li", "luisa"]}
 
+
 @pytest.mark.parametrize("frame_type", polars_frames)
 def test_validate_presence_of_columns_fail(frame_type: pl.DataType):
     source_df = frame_type(age_name_data)
@@ -54,7 +55,6 @@ def test_validate_schema_raises_when_struct_field_missing(
     )
     with pytest.raises(DataSchemaError):
         validate_schema(source_df, required_schema)
-
 
 
 @pytest.mark.parametrize("frame_type, dict_type", pytest_dict_frame_parameters)

@@ -6,6 +6,7 @@ from polars.testing import assert_frame_equal
 from typing import List, Dict, Any
 from polars.exceptions import ComputeError
 
+
 @pytest.mark.parametrize("frame_type", polars_frames)
 @pytest.mark.parametrize(
     "data, exp",
@@ -31,12 +32,15 @@ def test_div_or_else(frame_type: DataType, data: Dict[str, List[Any]], exp: List
         res = res.collect()
     assert_frame_equal(res, exp)
 
+
 @pytest.mark.parametrize("frame_type", polars_frames)
 def test_div_or_else_alt_or_else(frame_type: DataType):
     inp = frame_type({"dividend": [1.5, 2.5, 3, None], "divisor": [1, 1, 0, None]})
     exp = DataFrame({"res": [1.5, 2.5, 5, None]})
     if isinstance(
-        res := inp.select(res=div_or_else(dividend="dividend", divisor="divisor", or_else=5)),
+        res := inp.select(
+            res=div_or_else(dividend="dividend", divisor="divisor", or_else=5)
+        ),
         LazyFrame,
     ):
         res = res.collect()

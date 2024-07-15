@@ -18,16 +18,18 @@ else:
     lib = Path(__file__).parent
 
 
-def div_or_else(dividend: IntoExpr,divisor:IntoExpr, or_else:Union[int, float] = 0.0) -> IntoExpr:
+def div_or_else(
+    dividend: IntoExpr, divisor: IntoExpr, or_else: Union[int, float] = 0.0
+) -> IntoExpr:
     """
     Return result of division of cola by colb or default if colb is zero.
     """
     dividend = parse_into_expr(dividend)
     divisor = parse_into_expr(divisor)
     return register_plugin(
-        args=[dividend,divisor],
+        args=[dividend, divisor],
         symbol="div_or_else",
         is_elementwise=True,
-        kwargs={"or_else":float(or_else)},
+        kwargs={"or_else": float(or_else)},
         lib=lib,
     )
