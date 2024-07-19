@@ -16,6 +16,7 @@ from harley.to_boolean import is_null_or_blank
 from harley.column_functions import approx_equal
 from harley.schema_helpers import print_schema_as_code
 from harley.maths import div_or_else
+from harley.random import array_choice
 
 
 if parse_version(pl.__version__) < parse_version("0.20.16"):
@@ -37,4 +38,5 @@ __all__ = [
     "print_schema_as_code",
     "flatten_struct",
     "div_or_else",
+    "array_choice",
 ]

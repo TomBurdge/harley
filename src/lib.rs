@@ -5,6 +5,7 @@ mod is_booley;
 mod spaces;
 mod column_rename;
 mod maths;
+mod random;
 use column_rename::columns_to_snake_case;
 
 #[cfg(target_os = "linux")]
