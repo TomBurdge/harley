@@ -27,14 +27,14 @@ All functions, whether they should be implemented.
 #### Functions
 * [x] `single_space` - rust.
 * [x] `remove_all_whitespace` - rust.
-* [ ] `anti_trim` - rust.
+* [x] `anti_trim` - rust.
 * [x] `remove_non_word_characters` - rust.
 * `exists` - Propose not implement bc don't want to allow for an arbitrary python function as the callable. This requires inefficient map which will tank performance.
 * `forall` - see `exists`.
 * [x] `multi_equals` - rust.
 * `week_start_date` - might be covered by `polars_xdt`.
 * `week_end_date` see `week_start_date`.
-* [ ] `approx_equal` - rust.
+* [x] `approx_equal` - rust.
 * [ ] `array_choice` - rust. (interesting one, will be some way to do seed with a crate.)
 * `business_days_between` - covered by `workday_count` in `polars_xdt`.
 * `uuid5` - can cover in `faux_lars`.
