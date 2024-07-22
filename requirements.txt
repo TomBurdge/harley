@@ -1,4 +1,4 @@
-polars
+polars>=1.0.0
 maturin
 ruff
 pytest
