@@ -1,0 +1,12 @@
+mkdocs
+mkdocstrings-python
+mkdocs-gen-files
+mkdocs-literate-nav
+mkdocs-section-index
+markdown-include
+mkdocs-material
+pymdown-extensions
+mkdocs-macros-plugin
+mkdocs-material-extensions
+markdown-exec[ansi]
+pymdown-extensions

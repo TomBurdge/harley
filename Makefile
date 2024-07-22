@@ -26,3 +26,10 @@ run: install
 run-release: install-release
 	source .venv/bin/activate && python run.py
 
+docs-.venv: .venv
+	.venv/bin/pip install -r requirements_docs.txt
+
+docs-serve: docs-.venv
+	unset CONDA_PREFIX && \
+	source .venv/bin/activate && \
+	mkdocs serve

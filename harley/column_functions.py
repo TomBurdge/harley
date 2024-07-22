@@ -8,6 +8,33 @@ from harley.utils import parse_into_expr, register_plugin, parse_version
 
 
 def null_between(col: str, lower: str, upper: str) -> Expr:
+    """Check if a column value is between two other column values.
+
+    ```python
+    >>> df = pl.DataFrame({
+    ...         "col":   [1, 5, 3,    None],
+    ...         "lower": [1, 2, None, None],
+    ...         "upper": [2, 3, 3,    None]
+    ...     })
+    >>> df.select(res=harley.column_functions.null_between("col", "lower", "upper"))
+    shape: (4, 1)
+    ┌───────┐
+    │ res   │
+    │ ---   │
+    │ bool  │
+    ╞═══════╡
+    │ true  │
+    │ false │
+    │ true  │
+    │ false │
+    └───────┘
+    ```
+
+    :param col: name of the column to check
+    :param lower: name of the column to use as lower bound
+    :param upper: name of the column to use as upper bound
+    :return: Boolean expression
+    """
     return (
         pl.when(pl.col(lower).is_null() & pl.col(upper).is_null())
         .then(False)
