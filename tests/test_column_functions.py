@@ -1,11 +1,12 @@
 from harley.column_functions import null_between
 from harley.utils import polars_frames
 import pytest
-from polars import DataFrame, LazyFrame
+from polars import DataFrame, LazyFrame, DataType
 from polars.testing import assert_frame_equal
-from typing import Tuple, Any, Union
+from typing import Tuple, Any, Union, List
 from harley.column_functions import multi_equals
 from harley.column_functions import approx_equal
+
 
 @pytest.mark.parametrize("frame_type", polars_frames)
 @pytest.mark.parametrize(
@@ -26,7 +27,7 @@ from harley.column_functions import approx_equal
             [True, False, True, False],
             4.1,
         ),
-            (
+        (
             [[12, 20, 44, 32], [14, 26, 43, 9]],
             [False, False, True, False],
             1.9,
@@ -41,8 +42,13 @@ def test_approx_equal(
 ):
     schema = ["left", "right"]
     data = frame_type(dict(zip(schema, inp)))
-    exp = DataFrame({"res":exp})
-    if isinstance(res := data.select(res = approx_equal(col_1 ="left", col_2="right", threshold=thresh)), LazyFrame):
+    exp = DataFrame({"res": exp})
+    if isinstance(
+        res := data.select(
+            res=approx_equal(col_1="left", col_2="right", threshold=thresh)
+        ),
+        LazyFrame,
+    ):
         res = res.collect()
     assert_frame_equal(res, exp)
 
