@@ -27,7 +27,7 @@ All functions, whether they should be implemented.
 #### Functions
 * [x] `single_space` - rust.
 * [x] `remove_all_whitespace` - rust.
-* [ ] `anti_trim` - rust.
+* [x] `anti_trim` - rust.
 * [x] `remove_non_word_characters` - rust.
 * `exists` - Propose not implement bc don't want to allow for an arbitrary python function as the callable. This requires inefficient map which will tank performance.
 * `forall` - see `exists`.

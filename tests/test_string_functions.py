@@ -62,3 +62,22 @@ def test_remove_non_space_characters(lazy: bool):
     if lazy:
         frame = frame.collect()
     assert_series_equal(frame["actual"], frame["expected"], check_names=False)
+
+@pytest.mark.parametrize("lazy", [True, False])
+def test_anti_trim(lazy: bool):
+    string_data = [
+        ("  I\t\r\v\n go   ", "  Igo   "),
+        ("\t\r\v\n to", "\t\r\v\n to"),
+        ("school   ", "school   "),
+        ("by bus", "bybus"),
+        ("    ", "    "),
+        ("", ""),
+        (None, None),
+    ]
+    frame = pl.DataFrame([{"input": inp, "expected": exp} for inp, exp in string_data])
+    if lazy:
+        frame = frame.lazy()
+    frame = frame.with_columns(actual=harley.anti_trim("input"))
+    if lazy:
+        frame = frame.collect()
+    assert_series_equal(frame["actual"], frame["expected"], check_names=False)
