@@ -1,8 +1,8 @@
+from typing import Any, Dict, List, OrderedDict
+
+from polars import DataFrame, DataType, LazyFrame, Object, Unknown, col
+
 from harley.utils import PolarsFrame
-from polars import LazyFrame, Object, Unknown, DataFrame, col
-from typing import List, Dict
-from polars import DataType
-from typing import OrderedDict, Any
 
 
 def column_to_list(df: PolarsFrame, column: str) -> List:

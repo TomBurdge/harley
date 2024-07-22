@@ -1,42 +1,46 @@
 from __future__ import annotations
 
-from pathlib import Path
-
-import polars as pl
-
-from harley.utils import parse_version
-from harley.dataframe_helper import column_to_list
-from harley.transformations import snake_case_column_names, flatten_struct
+from harley.column_functions import approx_equal, null_between, multi_equals
+from harley.dataframe_helper import (
+    column_to_list,
+    nested_fields,
+    two_columns_to_dictionary,
+)
+from harley.dataframe_validator import (
+    validate_absence_of_columns,
+    validate_presence_of_columns,
+)
+from harley.maths import div_or_else
+from harley.schema_helpers import print_schema_as_code
 from harley.string_functions import (
-    single_space,
+    anti_trim,
     remove_all_whitespace,
     remove_non_word_characters,
-    anti_trim,
+    single_space,
 )
-from harley.to_boolean import is_null_or_blank
-from harley.column_functions import approx_equal
-from harley.schema_helpers import print_schema_as_code
-from harley.maths import div_or_else
-
-
-if parse_version(pl.__version__) < parse_version("0.20.16"):
-    from polars.utils.udfs import _get_shared_lib_location
-
-    lib: str | Path = _get_shared_lib_location(__file__)
-else:
-    lib = Path(__file__).parent
+from harley.to_boolean import is_null_or_blank, is_false, is_falsey, is_true, is_truthy
+from harley.transformations import flatten_struct, snake_case_column_names
 
 __all__ = [
+    "approx_equal",
+    "null_between",
+    "multi_equals",
     "column_to_list",
-    "single_space",
-    "snake_case_column_names",
+    "nested_fields",
+    "two_columns_to_dictionary",
+    "validate_absence_of_columns",
+    "validate_presence_of_columns",
+    "div_or_else",
+    "print_schema_as_code",
+    "anti_trim",
     "remove_all_whitespace",
     "remove_non_word_characters",
-    "anti_trim",
+    "single_space",
     "is_null_or_blank",
-    "snake_case_column_names",
-    "approx_equal",
-    "print_schema_as_code",
+    "is_false",
+    "is_falsey",
+    "is_true",
+    "is_truthy",
     "flatten_struct",
-    "div_or_else",
+    "snake_case_column_names",
 ]

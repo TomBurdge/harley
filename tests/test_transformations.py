@@ -1,10 +1,11 @@
+from typing import List, Union
+
 import pytest
-from harley.transformations import snake_case_column_names, flatten_struct
 from polars import DataFrame, LazyFrame, Series
-from typing import Union
-from harley.utils import polars_frames
 from polars.testing import assert_frame_equal
-from typing import List
+
+from harley.transformations import flatten_struct, snake_case_column_names
+from harley.utils import polars_frames
 
 column_names = [
     ["CamelCase", "camel_case"],

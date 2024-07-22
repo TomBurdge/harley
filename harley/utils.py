@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING, Sequence, Any, Union
+from typing import TYPE_CHECKING, Any, Sequence, Union
 
 import polars as pl
 
 if TYPE_CHECKING:
-    from polars.type_aliases import IntoExpr, PolarsDataType
     from pathlib import Path
+
+    from polars.type_aliases import IntoExpr, PolarsDataType
 
 from polars import DataFrame, LazyFrame
 

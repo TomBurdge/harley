@@ -1,9 +1,11 @@
+from typing import Callable, List, Union
+
 import pytest
-from harley.utils import polars_frames
-from harley.to_boolean import is_null_or_blank, is_true, is_truthy, is_false, is_falsey
 from polars import DataFrame, LazyFrame
 from polars.testing import assert_frame_equal
-from typing import List, Callable, Union
+
+from harley.to_boolean import is_false, is_falsey, is_null_or_blank, is_true, is_truthy
+from harley.utils import polars_frames
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)

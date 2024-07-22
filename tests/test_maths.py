@@ -1,9 +1,11 @@
-from harley.maths import div_or_else
+from typing import Any, Dict, List, Union
+
 import pytest
-from harley.utils import polars_frames
 from polars import DataFrame, LazyFrame
 from polars.testing import assert_frame_equal
-from typing import List, Dict, Any, Union
+
+from harley.maths import div_or_else
+from harley.utils import polars_frames
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)

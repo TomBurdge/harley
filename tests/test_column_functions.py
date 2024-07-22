@@ -1,11 +1,11 @@
-from harley.column_functions import null_between
-from harley.utils import polars_frames
+from typing import Any, List, Tuple, Union
+
 import pytest
-from polars import DataFrame, LazyFrame, DataType
+from polars import DataFrame, DataType, LazyFrame
 from polars.testing import assert_frame_equal
-from typing import Tuple, Any, Union, List
-from harley.column_functions import multi_equals
-from harley.column_functions import approx_equal
+
+from harley.column_functions import approx_equal, multi_equals, null_between
+from harley.utils import polars_frames
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)

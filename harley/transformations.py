@@ -1,9 +1,11 @@
-from harley.utils import PolarsFrame
-from .harley import columns_to_snake_case  # noqa
-from typing import Union, List, Dict
-from polars import col, Struct, Expr, LazyFrame
-
 import warnings
+from typing import Dict, List, Union
+
+from polars import Expr, LazyFrame, Struct, col
+
+from harley.utils import PolarsFrame
+
+from .harley import columns_to_snake_case  # noqa
 
 
 def snake_case_column_names(df: PolarsFrame) -> PolarsFrame:

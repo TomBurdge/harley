@@ -1,6 +1,8 @@
-from harley.utils import PolarsFrame
+from typing import Dict, List, OrderedDict, Union
+
 from polars import LazyFrame
-from typing import Dict, OrderedDict, Union, List
+
+from harley.utils import PolarsFrame
 
 
 class DataFrameMissingColumnError(ValueError):

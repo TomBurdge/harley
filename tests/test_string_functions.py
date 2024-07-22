@@ -1,8 +1,8 @@
-import pytest
+from string import ascii_letters
 
 import polars as pl
+import pytest
 from polars.testing import assert_series_equal
-from string import ascii_letters
 
 import harley
 

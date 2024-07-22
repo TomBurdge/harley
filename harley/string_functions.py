@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, List
 
 import polars as pl
 
-from harley.utils import parse_into_expr, register_plugin, parse_version
+from harley.utils import parse_into_expr, parse_version, register_plugin
 
 if TYPE_CHECKING:
     from polars.type_aliases import IntoExpr

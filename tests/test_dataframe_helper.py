@@ -1,40 +1,41 @@
-from harley import column_to_list
-from harley.dataframe_helper import nested_fields
+from datetime import datetime
+from typing import OrderedDict, Union
+
+import pytest
 from polars import (
+    Array,
+    Binary,
+    Boolean,
+    Categorical,
+    DataFrame,
+    Date,
+    Datetime,
     Decimal,
+    Duration,
+    Enum,
     Float32,
     Float64,
     Int8,
     Int16,
     Int32,
     Int64,
+    LazyFrame,
+    List,
+    Null,
+    Object,
+    String,
+    Struct,
+    Time,
     UInt8,
     UInt32,
     UInt64,
-    Date,
-    Datetime,
-    Duration,
-    Time,
-    Array,
-    List,
-    Struct,
-    String,
-    Categorical,
-    Enum,
-    Utf8,
-    Binary,
-    Boolean,
-    Null,
-    Object,
     Unknown,
-    LazyFrame,
+    Utf8,
 )
-import pytest
-from datetime import datetime
+
+from harley import column_to_list
+from harley.dataframe_helper import nested_fields, two_columns_to_dictionary
 from harley.utils import polars_frames
-from typing import OrderedDict, Union
-from harley.dataframe_helper import two_columns_to_dictionary
-from polars import DataFrame
 
 floats = [4.0, 5.0, 6.0, 7.0, 8.0]
 data = {

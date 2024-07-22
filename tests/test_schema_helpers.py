@@ -1,9 +1,11 @@
-from harley.schema_helpers import print_schema_as_code
+import sys
+from io import StringIO
 from typing import OrderedDict
+
 import polars.datatypes as T
 import pytest
-from io import StringIO
-import sys
+
+from harley.schema_helpers import print_schema_as_code
 
 
 @pytest.mark.parametrize(
