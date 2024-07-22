@@ -72,6 +72,7 @@ def data_with_struct() -> List[Series]:
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct(
     frame_type: Union[DataFrame, LazyFrame], data_with_struct: List[Series]
 ):
@@ -90,6 +91,7 @@ def test_flatten_struct(
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct_do_not_drop(
     frame_type: Union[DataFrame, LazyFrame], data_with_struct: List[Series]
 ):
@@ -117,6 +119,7 @@ def test_flatten_struct_do_not_drop(
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct_separator(
     frame_type: Union[DataFrame, LazyFrame], data_with_struct: List[Series]
 ):
@@ -148,6 +151,7 @@ def nested_struct_data() -> dict:
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct_recursive(
     frame_type: Union[DataFrame, LazyFrame], nested_struct_data: List[Series]
 ):
@@ -169,6 +173,7 @@ def test_flatten_struct_recursive(
 
 
 @pytest.mark.parametrize("frame_type", polars_frames)
+@pytest.mark.timeout(1)
 def test_flatten_struct_recursive_limit(
     frame_type: Union[DataFrame, LazyFrame], nested_struct_data: List[Series]
 ):
@@ -182,7 +187,7 @@ def test_flatten_struct_recursive_limit(
         ]
     )
     if isinstance(
-        res := flatten_struct(df=inp, struct_columns="coords", recursive=True, limit=1),
+        res := flatten_struct(df=inp, struct_columns="coords", recursive=True, limit=2),
         LazyFrame,
     ):
         res = res.collect()

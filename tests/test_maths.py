@@ -6,7 +6,6 @@ from polars.testing import assert_frame_equal
 from typing import List, Dict, Any, Union
 
 
-
 @pytest.mark.parametrize("frame_type", polars_frames)
 @pytest.mark.parametrize(
     "data, exp",
@@ -17,8 +16,8 @@ from typing import List, Dict, Any, Union
             [1.5, 2.5, 0, None],
         ),
         (
-            {"dividend": [3, 0.5, 3, None], "divisor": [1.5, 0.5, 0.0, None]},
-            [2.0, 1.0, 0.0, None],
+            {"dividend": [0.5, 3, 3, None], "divisor": [0.5, 1.5, 0.0, None]},
+            [1.0, 2.0, 0.0, None],
         ),
     ),
 )

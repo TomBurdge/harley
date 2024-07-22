@@ -11,6 +11,7 @@ from harley.string_functions import (
     single_space,
     remove_all_whitespace,
     remove_non_word_characters,
+    anti_trim,
 )
 from harley.to_boolean import is_null_or_blank
 from harley.column_functions import approx_equal
@@ -32,6 +33,7 @@ __all__ = [
     "snake_case_column_names",
     "remove_all_whitespace",
     "remove_non_word_characters",
+    "anti_trim",
     "is_null_or_blank",
     "snake_case_column_names",
     "approx_equal",

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 import polars as pl
 
@@ -52,6 +52,19 @@ def remove_non_word_characters(expr: IntoExpr) -> IntoExpr:
     return register_plugin(
         args=[expr],
         symbol="remove_non_word_characters",
+        is_elementwise=True,
+        lib=lib,
+    )
+
+
+def anti_trim(expr: List[IntoExpr]) -> IntoExpr:
+    """
+    Replaces all whitespace to a single space from a string, then trims leading and trailing spaces.
+    """
+    expr = parse_into_expr(expr)
+    return register_plugin(
+        args=[expr],
+        symbol="anti_trim",
         is_elementwise=True,
         lib=lib,
     )
