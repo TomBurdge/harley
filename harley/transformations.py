@@ -5,6 +5,7 @@ from polars import col, Struct, Expr, LazyFrame
 
 import warnings
 
+
 def snake_case_column_names(df: PolarsFrame) -> PolarsFrame:
     new_col_names = columns_to_snake_case(df.columns)
     return df.rename(new_col_names)

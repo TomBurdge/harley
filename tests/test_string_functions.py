@@ -63,6 +63,7 @@ def test_remove_non_space_characters(lazy: bool):
         frame = frame.collect()
     assert_series_equal(frame["actual"], frame["expected"], check_names=False)
 
+
 @pytest.mark.parametrize("lazy", [True, False])
 def test_anti_trim(lazy: bool):
     string_data = [

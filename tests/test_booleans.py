@@ -6,7 +6,6 @@ from polars.testing import assert_frame_equal
 from typing import List, Callable, Union
 
 
-
 @pytest.mark.parametrize("frame_type", polars_frames)
 @pytest.mark.parametrize(
     "inp, exp, all_white_space_as_null",

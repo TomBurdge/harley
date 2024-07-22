@@ -6,7 +6,6 @@ from polars.testing import assert_frame_equal
 from typing import List, Dict, Any, Union
 
 
-
 @pytest.mark.parametrize("frame_type", polars_frames)
 @pytest.mark.parametrize(
     "data, exp",

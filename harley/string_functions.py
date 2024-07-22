@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 import polars as pl
 
@@ -55,6 +55,7 @@ def remove_non_word_characters(expr: IntoExpr) -> IntoExpr:
         is_elementwise=True,
         lib=lib,
     )
+
 
 def anti_trim(expr: List[IntoExpr]) -> IntoExpr:
     """
