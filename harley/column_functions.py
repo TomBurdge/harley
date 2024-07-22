@@ -18,7 +18,7 @@ def null_between(col: str, lower: str, upper: str) -> Expr:
     ...         "lower": [1, 2, None, None],
     ...         "upper": [2, 3, 3,    None]
     ...     })
-    >>> df.select(res=harley.column_functions.null_between("col", "lower", "upper"))
+    >>> df.select(res=harley.null_between("col", "lower", "upper"))
     shape: (4, 1)
     ┌───────┐
     │ res   │
@@ -51,6 +51,26 @@ def null_between(col: str, lower: str, upper: str) -> Expr:
 
 
 def multi_equals(cols: List[str], val: Any) -> Expr:
+    """Check if multiple columns are equal to a value.
+
+    ```python
+    >>> df = pl.DataFrame({"col_1": [1, 2, 3], "col_2": [1, 3, 3]})
+    >>> df.select(all_3=harley.multi_equals(["col_1", "col_2"], 3))
+    shape: (3, 1)
+    ┌───────┐
+    │ all_3 │
+    │ ---   │
+    │ bool  │
+    ╞═══════╡
+    │ false │
+    │ false │
+    │ true  │
+    └───────┘
+    ```
+    :param cols: list of column names
+    :param val: value to compare
+    :return: Boolean expression
+    """
     query = [pl.col(name) == val for name in cols]
     return pl.all_horizontal(query)
 
@@ -69,7 +89,25 @@ def approx_equal(
     col_1: IntoExpr, col_2: IntoExpr, threshold: Union[float, int]
 ) -> IntoExpr:
     """
-    Returns True if between
+    Returns whether the absolute difference between the values is less than or equal to the threshold.
+
+    ```python
+    >>> df = pl.DataFrame({"col_1": [1.0, 2.0, 3.0], "col_2": [1.9, 4.0, 1.5]})
+    >>> df.select(close=harley.approx_equal("col_1", "col_2", 1.5))
+    shape: (3, 1)
+    ┌───────┐
+    │ close │
+    │ ---   │
+    │ bool  │
+    ╞═══════╡
+    │ true  │
+    │ false │
+    │ true  │
+    └───────┘
+    ```
+    :param col_1: column name
+    :param col_2: column name
+    :param threshold: threshold
     """
     col_1 = parse_into_expr(col_1)
     col_2 = parse_into_expr(col_2)
