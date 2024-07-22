@@ -11,6 +11,7 @@ if TYPE_CHECKING:
 
 from polars import DataFrame, LazyFrame
 
+polars_frames = [DataFrame, LazyFrame]
 PolarsFrame = Union[DataFrame, LazyFrame]
 
 
