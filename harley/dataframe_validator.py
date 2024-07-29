@@ -22,11 +22,8 @@ def validate_presence_of_columns(
 ) -> None:
     """Validate the presence of column names in a DataFrame.
 
-    :param df: A spark DataFrame.
-    :type df: DataFrame`
+    :param df: A polars DataFrame or LazyFrame
     :param required_col_names: List of the required column names for the DataFrame.
-    :type required_col_names: :py:class:`list` of :py:class:`str`
-    :return: None.
     :raises DataFrameMissingColumnError: if any of the requested column names are
     not present in the DataFrame.
     """
@@ -41,6 +38,12 @@ def validate_presence_of_columns(
 
 
 def validate_schema(df: PolarsFrame, required_schema: Union[Dict, OrderedDict]) -> None:
+    """Validate the schema of a DataFrame.
+
+    :param df: A polars DataFrame or LazyFrame
+    :param required_schema: The expected schema for the DataFrame.
+    :raises DataSchemaError: if the DataFrame does not match the expected schema.
+    """
     if isinstance(df, LazyFrame):
         df_schema = df.collect_schema()
     else:
@@ -54,6 +57,13 @@ def validate_schema(df: PolarsFrame, required_schema: Union[Dict, OrderedDict]) 
 def validate_absence_of_columns(
     df: PolarsFrame, prohibited_col_names: List[str]
 ) -> None:
+    """Validate the absence of column names in a DataFrame.
+
+    :param df: A polars DataFrame or LazyFrame
+    :param prohibited_col_names: List of the prohibited column names for the DataFrame.
+    :raises DataFrameProhibitedColumnError: if any of the requested column names are
+    present in the DataFrame.
+    """
     if isinstance(df, LazyFrame):
         df_cols = df.collect_schema().names()
     else:
