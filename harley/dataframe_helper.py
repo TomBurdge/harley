@@ -45,7 +45,7 @@ def nested_fields(schema: OrderedDict[str, DataType]) -> Dict[str, DataType]:
     :return: A dictionary of nested fields
     """
     return OrderedDict(
-        [(field, d_type) for field, d_type in schema if d_type.is_nested()]
+        [(field, d_type) for field, d_type in schema.items() if d_type.is_nested()]
     )
 
 

@@ -59,7 +59,17 @@ def test_column_to_list(frame_type: Union[DataFrame, LazyFrame]):
     assert exp == res
 
 
-def test_nested_fields():
+def test_nested_fields_example_dataframe():
+    df = DataFrame([
+        {"id": 0, "students": ["Tao"]},
+        {"id": 1, "students": ["Nicholas", "Charles"]}
+    ])
+    res = nested_fields(df.schema)
+    exp = OrderedDict([("students", List(String))])
+    assert res == exp
+
+
+def test_nested_fields_all_types():
     all_column_types = [
         Array,
         List,
@@ -88,9 +98,9 @@ def test_nested_fields():
         Object,
         Unknown,
     ]
-    schema = [
+    schema = OrderedDict([
         ("col_" + str(i), col_type) for i, col_type in enumerate(all_column_types)
-    ]
+    ])
     res = nested_fields(schema=schema)
     exp = OrderedDict([("col_0", Array), ("col_1", List), ("col_2", Struct)])
     assert res == exp
