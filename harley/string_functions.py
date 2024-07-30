@@ -21,6 +21,22 @@ else:
 def single_space(expr: IntoExpr) -> IntoExpr:
     """
     Replaces all whitespace to a single space from a string, then trims leading and trailing spaces.
+
+    ```python
+    >>> df = pl.DataFrame({"raw": ["  I\\r\\x0bgo   ", "\\tto", "school\\n", "by bus"]})
+    >>> df.select(processed="'" + harley.single_space("raw") + "'")
+    shape: (4, 1)
+    ┌───────────┐
+    │ processed │
+    │ ---       │
+    │ str       │
+    ╞═══════════╡
+    │ 'I go'    │
+    │ 'to'      │
+    │ 'school'  │
+    │ 'by bus'  │
+    └───────────┘
+    ```
     """
     expr = parse_into_expr(expr)
     return register_plugin(
@@ -34,6 +50,22 @@ def single_space(expr: IntoExpr) -> IntoExpr:
 def remove_all_whitespace(expr: IntoExpr) -> IntoExpr:
     """
     Removes all whitespace from a string.
+
+    ```python
+    >>> df = pl.DataFrame({"raw": ["  I\\r\\x0bgo   ", "\\tto", "school\\n", "by bus"]})
+    >>> df.select(processed="'" + harley.remove_all_whitespace("raw") + "'")
+    shape: (4, 1)
+    ┌───────────┐
+    │ processed │
+    │ ---       │
+    │ str       │
+    ╞═══════════╡
+    │ 'Igo'     │
+    │ 'to'      │
+    │ 'school'  │
+    │ 'bybus'   │
+    └───────────┘
+    ```
     """
     expr = parse_into_expr(expr)
     return register_plugin(
@@ -47,6 +79,21 @@ def remove_all_whitespace(expr: IntoExpr) -> IntoExpr:
 def remove_non_word_characters(expr: IntoExpr) -> IntoExpr:
     """
     Removes all non-word characters. "Word characters" are [\w\s], i.e. alphanumeric, whitespace, and underscore ("_").
+
+    ```python
+    >>> df = pl.DataFrame({"dirty": ["unicorns✨🦄✨", "fast?", "!slow"]})
+    >>> df.select(clean = harley.remove_non_word_characters("dirty"))
+    shape: (4, 1)
+    ┌──────────┐
+    │ clean    │
+    │ ---      │
+    │ str      │
+    ╞══════════╡
+    │ unicorns │
+    │ fast     │
+    │ slow     │
+    └──────────┘
+    ```
     """
     expr = parse_into_expr(expr)
     return register_plugin(
@@ -59,7 +106,23 @@ def remove_non_word_characters(expr: IntoExpr) -> IntoExpr:
 
 def anti_trim(expr: List[IntoExpr]) -> IntoExpr:
     """
-    Replaces all whitespace to a single space from a string, then trims leading and trailing spaces.
+    Replaces all whitespace between words, keeping leading and trailing spaces.
+
+    ```python
+    >>> df = pl.DataFrame({"raw": [" I  go ", "  to", "school", "by\\r\\t\\n\\vbus"]})
+    >>> df.select(processed="'" + harley.anti_trim("raw") + "'")
+    shape: (4, 1)
+    ┌───────────┐
+    │ processed │
+    │ ---       │
+    │ str       │
+    ╞═══════════╡
+    │ ' Igo '   │
+    │ '  to'    │
+    │ 'school'  │
+    │ 'bybus'   │
+    └───────────┘
+    ```
     """
     expr = parse_into_expr(expr)
     return register_plugin(

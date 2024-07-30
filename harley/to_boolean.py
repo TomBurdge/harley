@@ -21,7 +21,33 @@ def is_null_or_blank(expr: IntoExpr, all_white_space_as_null: bool = False) -> I
     """
     Returns True if null/blank/empty list.
     Otherwise, False.
+
+    ```python
+    >>> df = pl.DataFrame({"strings": ["", None, "foo"], "lists": [[], None, [3]]})
+    >>> df.select(
+    ...     str_check = harley.is_null_or_blank("strings"),
+    ...     list_check = harley.is_null_or_blank("lists"),
+    ... )
+    shape: (3, 2)
+    ┌───────────┬────────────┐
+    │ str_check ┆ list_check │
+    │ ---       ┆ ---        │
+    │ bool      ┆ bool       │
+    ╞═══════════╪════════════╡
+    │ true      ┆ true       │
+    │ true      ┆ true       │
+    │ false     ┆ false      │
+    └───────────┴────────────┘
+    ```
     """
+    if not all_white_space_as_null:
+        expr = parse_into_expr(expr)
+        return register_plugin(
+            args=[expr],
+            symbol="is_null_or_blank",
+            is_elementwise=True,
+            lib=lib,
+        )
     expr = parse_into_expr(expr)
     return register_plugin(
         args=[expr],
@@ -35,6 +61,21 @@ def is_null_or_blank(expr: IntoExpr, all_white_space_as_null: bool = False) -> I
 def is_falsey(expr: IntoExpr) -> IntoExpr:
     """
     Returns True if null/False, otherwise False.
+
+    ```python
+    >>> df = pl.DataFrame({"bools": [True, False, None]})
+    >>> df.select(res = harley.is_falsey("bools"))
+    shape: (3, 1)
+    ┌───────┐
+    │ res   │
+    │ ---   │
+    │ bool  │
+    ╞═══════╡
+    │ false │
+    │ true  │
+    │ true  │
+    └───────┘
+    ```
     """
     expr = parse_into_expr(expr)
     return register_plugin(
@@ -49,6 +90,21 @@ def is_false(expr: IntoExpr) -> IntoExpr:
     """
     Returns True if False, otherwise False.
     Whitespace aware.
+
+    ```python
+    >>> df = pl.DataFrame({"bools": [True, False, None]})
+    >>> df.select(res = harley.is_false("bools"))
+    shape: (3, 1)
+    ┌───────┐
+    │ res   │
+    │ ---   │
+    │ bool  │
+    ╞═══════╡
+    │ false │
+    │ true  │
+    │ false │
+    └───────┘
+    ```
     """
     expr = parse_into_expr(expr)
     return register_plugin(
@@ -63,6 +119,22 @@ def is_truthy(expr: IntoExpr) -> IntoExpr:
     """
     Returns True if True, otherwise False.
     Whitespace aware.
+
+
+    ```python
+    >>> df = pl.DataFrame({"bools": [True, False, None]})
+    >>> df.select(res = harley.is_truthy("bools"))
+    shape: (3, 1)
+    ┌───────┐
+    │ res   │
+    │ ---   │
+    │ bool  │
+    ╞═══════╡
+    │ true  │
+    │ false │
+    │ true  │
+    └───────┘
+    ```
     """
     expr = parse_into_expr(expr)
     return register_plugin(
@@ -77,6 +149,21 @@ def is_true(expr: IntoExpr) -> IntoExpr:
     """
     Returns True if True, otherwise False.
     Whitespace aware.
+
+    ```python
+    >>> df = pl.DataFrame({"bools": [True, False, None]})
+    >>> df.select(res = harley.is_true("bools"))
+    shape: (3, 1)
+    ┌───────┐
+    │ res   │
+    │ ---   │
+    │ bool  │
+    ╞═══════╡
+    │ true  │
+    │ false │
+    │ false │
+    └───────┘
+    ```
     """
     expr = parse_into_expr(expr)
     return register_plugin(
