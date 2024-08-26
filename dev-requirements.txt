@@ -2,6 +2,7 @@ pytest
 ruff
 mypy
 pytest-timeout
+pytest-sugar
 mkdocstrings-python
 mkdocs-gen-files
 mkdocs-literate-nav
