@@ -1,10 +1,10 @@
-mod utils;
 mod approx_equal;
-mod is_null;
-mod is_booley;
-mod spaces;
 mod column_rename;
+mod is_booley;
+mod is_null;
 mod maths;
+mod spaces;
+mod utils;
 use column_rename::columns_to_snake_case;
 
 #[cfg(target_os = "linux")]
