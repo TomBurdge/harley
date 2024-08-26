@@ -33,4 +33,4 @@ run-release: install-release
 	source .venv/bin/activate && python run.py
 
 mkdocs:
-	source .venv/bin/activate && mkdocs gh-deploy --force
+	source .venv/bin/activate && mkdocs gh-deploy --force --clean --remote-branch gh-pages
