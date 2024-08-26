@@ -7,6 +7,15 @@ import warnings
 
 
 def snake_case_column_names(df: PolarsFrame) -> PolarsFrame:
+    """
+    Takes a PolarsFrame, converts its column names to snake case,
+    and returns the modified PolarsFrame.
+    
+    :param df: A PolarsFrame object, which can be eith er a LazyFrame or DataFrame.
+    :type df: PolarsFrame
+    :return: The function `snake_case_column_names` is returning a PolarsFrame with column names
+    converted to snake case.
+    """
     if isinstance(df, LazyFrame):
         all_column_names = df.collect_schema().names()
     else:
