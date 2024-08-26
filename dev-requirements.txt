@@ -1,0 +1,15 @@
+pytest
+ruff
+mypy
+pytest-timeout
+mkdocstrings-python
+mkdocs-gen-files
+mkdocs-literate-nav
+mkdocs-section-index
+markdown-include
+mkdocs
+mkdocs-material[imaging]
+pymdown-extensions
+mkdocs-macros-plugin
+mkdocs-material-extensions
+markdown-exec
