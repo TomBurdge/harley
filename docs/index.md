@@ -8,6 +8,8 @@ Harley is also a great way to learn about polars best practices like how to orga
 
 Harley is a port to polars of Harley's sister project, [quinn](https://github.com/MrPowers/quinn).
 
+Harley is neither associated with motorbikes, nor the DC universe.
+
 ## Contributing
 
 Want to contribute to Harley?
