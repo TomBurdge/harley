@@ -26,4 +26,4 @@ Harley supports developer productivity functions for:
 
 
 ## Documentation
-You can check out all the supported functionality in [the documentation](https://tomburdge.github.io/harley/reference/Summary).
+You can check out all the supported functionality in [the documentation](https://tomburdge.github.io/harley/reference/harley).
