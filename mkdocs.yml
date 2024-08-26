@@ -1,4 +1,7 @@
 site_name: Harley
+site_url: "https://tomburdge.github.io/harley/"
+repo_url: "https://github.com/TomBurdge/harley"
+repo_name: "TomBurdge/harley"
 nav:
   - Code Reference: reference/
 theme:
