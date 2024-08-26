@@ -9,7 +9,7 @@ def column_to_list(df: PolarsFrame, column: str) -> List:
     """
     Takes a PolarsFrame and a column name, extracts the specified column as a list, and
     returns it.
-    
+
     :param df: PolarsFrame
     :type df: PolarsFrame
     :param column: The name of the column in
@@ -37,10 +37,10 @@ def two_columns_to_dictionary(
 ) -> Dict[Any, Any]:
     """
     Converts two columns from a DataFrame into a dictionary,
-    with one column as keys and the other as values, 
+    with one column as keys and the other as values,
     handling potential issues like duplicate keys and
     non-hashable types.
-    
+
     :param df: A DataFrame containing the data you want to convert into a dictionary
     :type df: DataFrame
     :param key_col_name: The name of the column in the DataFrame that will be used as the key in the resulting dictionary.

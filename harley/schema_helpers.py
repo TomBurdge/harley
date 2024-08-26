@@ -8,7 +8,7 @@ def print_schema_as_code(
     """
     Takes a schema as input and prints it as valid code, with an
     option to prepend 'pl.' to the column types.
-    
+
     :param schema: An OrderedDict where the keys are column names (strings)
     and the values are data types (DataType)
     :type schema: OrderedDict[str, DataType]

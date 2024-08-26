@@ -26,13 +26,13 @@ def flatten_struct(
     drop_original_struct: bool = True,
     recursive: bool = False,
     limit: int = None,
-    ) -> PolarsFrame:
+) -> PolarsFrame:
     """
     Takes a PolarsFrame and flattens specified struct columns into
-    separate columns using a specified separator, 
+    separate columns using a specified separator,
     with options to control recursion and limit the number
     of flattening levels.
-    
+
     :param df: A PolarsFrame, either a LazyFrame or DataFrame.
     :type df: PolarsFrame
     :param struct_columns: The column or columns in the PolarsFrame that contain struct data.

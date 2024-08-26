@@ -41,7 +41,7 @@ def validate_presence_of_columns(
 def validate_schema(df: PolarsFrame, required_schema: Union[Dict, OrderedDict]) -> None:
     """
     Validates whether a given DataFrame matches an expected schema.
-    
+
     :param df: A PolarsFrame object representing a DataFrame or a LazyFrame
     :type df: PolarsFrame
     :param required_schema: The `required_schema` parameter is a dictionary or an ordered dictionary
@@ -65,7 +65,7 @@ def validate_absence_of_columns(
 ) -> None:
     """
     Checks for the presence of prohibited columns in a DataFrame and raises an error if any are found.
-    
+
     :param df: A PolarsFrame object representing a DataFrame or LazyFrame
     :type df: PolarsFrame
     :param prohibited_col_names: A list of column names that should not be present in the DataFrame `df`. The function `validate_absence_of_columns` checks if

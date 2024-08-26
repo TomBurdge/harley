@@ -24,7 +24,7 @@ def div_or_else(
     """
     Returns the result of dividing one expression by another, with an optional default
     value if the divisor is zero.
-    
+
     :param dividend: The value that will be divided
     :type dividend: IntoExpr
     :param divisor: The value by which

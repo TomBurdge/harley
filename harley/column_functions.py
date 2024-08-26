@@ -11,7 +11,7 @@ def null_between(col: str, lower: str, upper: str) -> Expr:
     """
     The function `null_between` returns an expression to check if a column value falls within a range,
     handling null values appropriately.
-    
+
     :param col: The column for which you want to check if the values are
     null or fall within a certain range defined by the `lower` and `upper` bounds.
     :type col: str
@@ -39,7 +39,7 @@ def null_between(col: str, lower: str, upper: str) -> Expr:
 def multi_equals(cols: List[str], val: Any) -> Expr:
     """
     Creates a query that checks if multiple columns have a specified value.
-    
+
     :param cols: List[str]
     :type cols: List[str]
     :param val: The value that you want to compare the columns against in the
@@ -67,7 +67,7 @@ def approx_equal(
 ) -> IntoExpr:
     """
     Compares two columns for approximate equality within a specified threshold.
-    
+
     :param col_1: The first column or expression that you want to compare for approximate
     equality
     :type col_1: IntoExpr
