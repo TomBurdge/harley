@@ -4,9 +4,12 @@
 
 Harley contains polars helper methods that will make you more productive.
 
+Checkout the full code documentation [HERE](reference/Summary.md)
+
 Harley is also a great way to learn about polars best practices like how to validate schemas and polars use plugins for custom functionality at speed.
 
-Harley is a polars port of Harley's sister project, [quinn](https://github.com/MrPowers/quinn).
+Harley is a polars port of Harley's sister project, [Quinn](https://github.com/MrPowers/quinn). 
+Many of Quinn's original methods, written to extend pyspark, are trivial with the excellent polars API.
 
 Harley is neither associated with motorbikes, nor the DC universe.
 
