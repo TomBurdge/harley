@@ -32,5 +32,5 @@ run: install
 run-release: install-release
 	source .venv/bin/activate && python run.py
 
-mkdocs: install-release
+mkdocs:
 	source .venv/bin/activate && mkdocs gh-deploy --force
