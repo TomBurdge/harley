@@ -3,7 +3,12 @@ SHELL=/bin/bash
 .venv:  ## Set up virtual environment
 	python3 -m venv .venv
 	.venv/bin/pip install -r requirements.txt
+
+install_dev:
+	python3 -m venv .venv
 	.venv/bin/pip install -r dev-requirements.txt
+
+dev_requirements: .venv install_dev
 
 install: .venv
 	unset CONDA_PREFIX && \
