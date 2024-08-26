@@ -26,7 +26,33 @@ def flatten_struct(
     drop_original_struct: bool = True,
     recursive: bool = False,
     limit: int = None,
-) -> PolarsFrame:
+    ) -> PolarsFrame:
+    """
+    Takes a PolarsFrame and flattens specified struct columns into
+    separate columns using a specified separator, 
+    with options to control recursion and limit the number
+    of flattening levels.
+    
+    :param df: A PolarsFrame, either a LazyFrame or DataFrame.
+    :type df: PolarsFrame
+    :param struct_columns: The column or columns in the PolarsFrame that contain struct data.
+    This function is designed to flatten the struct data into separate columns based on the fields within the struct.
+    :type struct_columns: Union[str, List[str]]
+    :param separator: Specifies the character or string that will be used to separate the original
+    column name from the nested field names when flattening a nested struct column.
+    :type separator: str (optional)
+    :param drop_original_struct: Determines whether the original struct columns should be dropped after flattening or not,
+    defaults to True.
+    :type drop_original_struct: bool (optional)
+    :param recursive: Determines whether the flattening process should be applied recursively to
+    all levels of nested structures within the specified struct columns, defaults to False.
+    :type recursive: bool (optional)
+    :param limit: Determines the maximum number of levels to flatten the struct columns.
+    If `limit` is set to a positive integer, the function will flatten the struct columns up to that specified level.
+    If `limit` is set to `None`, there is no limit.
+    :type limit: int
+    :return: returns a PolarsFrame.
+    """
     if isinstance(struct_columns, str):
         struct_columns = [struct_columns]
     if not recursive:
