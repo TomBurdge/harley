@@ -4,7 +4,7 @@
 
 Harley contains polars helper methods that will make you more productive.
 
-Harley is also a great way to learn about polars best practices like how to organize and unit test your code.
+Harley is also a great way to learn about polars best practices like how to validate schemas and polars use plugins for custom functionality at speed.
 
 Harley is a port to polars of Harley's sister project, [quinn](https://github.com/MrPowers/quinn).
 
