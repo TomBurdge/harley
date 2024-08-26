@@ -1,6 +1,6 @@
 from harley.utils import PolarsFrame
 from polars import LazyFrame
-from typing import Dict, OrderedDict, Union, List
+chfrom typing import Dict, OrderedDict, Union, List
 
 
 class DataFrameMissingColumnError(ValueError):
@@ -16,7 +16,7 @@ class DataFrameProhibitedColumnError(ValueError):
 
 
 def validate_presence_of_columns(
-    df: PolarsFrame, required_col_names: list[str]
+    df: PolarsFrame, required_col_names: List[str]
 ) -> None:
     """Validate the presence of column names in a DataFrame.
 
