@@ -4,7 +4,7 @@
 
 Harley contains polars helper methods that will make you more productive.
 
-Checkout the full code documentation [HERE](reference/Summary.md)
+Checkout the full code documentation [here](https://tomburdge.github.io/harley/reference/harley).
 
 Harley is also a great way to learn about polars best practices like how to validate schemas and polars use plugins for custom functionality at speed.
 
