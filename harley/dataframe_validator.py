@@ -16,7 +16,7 @@ class DataFrameProhibitedColumnError(ValueError):
 
 
 def validate_presence_of_columns(
-    df: PolarsFrame, required_col_names: list[str]
+    df: PolarsFrame, required_col_names: List[str]
 ) -> None:
     """Validate the presence of column names in a DataFrame.
 
@@ -39,6 +39,17 @@ def validate_presence_of_columns(
 
 
 def validate_schema(df: PolarsFrame, required_schema: Union[Dict, OrderedDict]) -> None:
+    """
+    Validates whether a given DataFrame matches an expected schema.
+
+    :param df: A PolarsFrame object representing a DataFrame or a LazyFrame
+    :type df: PolarsFrame
+    :param required_schema: The `required_schema` parameter is a dictionary or an ordered dictionary
+    that represents the schema that the input `df` (PolarsFrame) should adhere to. The function
+    `validate_schema` compares the schema of the input dataframe with the required schema and raises a
+    `DataSchemaError` if they do not match.
+    :type required_schema: Union[Dict, OrderedDict]
+    """
     if isinstance(df, LazyFrame):
         df_schema = df.collect_schema()
     else:
@@ -52,6 +63,15 @@ def validate_schema(df: PolarsFrame, required_schema: Union[Dict, OrderedDict]) 
 def validate_absence_of_columns(
     df: PolarsFrame, prohibited_col_names: List[str]
 ) -> None:
+    """
+    Checks for the presence of prohibited columns in a DataFrame and raises an error if any are found.
+
+    :param df: A PolarsFrame object representing a DataFrame or LazyFrame
+    :type df: PolarsFrame
+    :param prohibited_col_names: A list of column names that should not be present in the DataFrame `df`. The function `validate_absence_of_columns` checks if
+    Raises a `DataFrameProhibitedColumnError` if any of the columns are present.
+    :type prohibited_col_names: List[str]
+    """
     if isinstance(df, LazyFrame):
         df_cols = df.collect_schema().names()
     else:

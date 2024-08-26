@@ -1,0 +1,67 @@
+site_name: Harley
+nav:
+  - Code Reference: reference/
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+    - navigation.tracking
+    - navigation.instant
+    - navigation.tabs.sticky
+    - navigation.footer
+    - navigation.indexes
+    - navigation.expand
+    - content.tabs.link
+    - content.code.copy
+    - content.code.select
+  language: en
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: Switch to dark mode
+      primary: teal
+      accent: purple 
+    - scheme: slate 
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode    
+      primary: teal
+      accent: lime
+
+plugins:
+  - social
+  - search
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            docstring_style: sphinx
+            docstring_options:
+              show_if_no_docstring: true
+            show_source: true
+  - markdown-exec
+
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/TomBurdge
+    - icon: fontawesome/brands/linkedin
+      link: https://uk.linkedin.com/in/tom-burdge-734709223
+markdown_extensions:
+  - pymdownx.superfences

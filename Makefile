@@ -4,6 +4,12 @@ SHELL=/bin/bash
 	python3 -m venv .venv
 	.venv/bin/pip install -r requirements.txt
 
+install_dev:
+	python3 -m venv .venv
+	.venv/bin/pip install -r dev-requirements.txt
+
+dev_requirements: .venv install_dev
+
 install: .venv
 	unset CONDA_PREFIX && \
 	source .venv/bin/activate && maturin develop
@@ -26,3 +32,5 @@ run: install
 run-release: install-release
 	source .venv/bin/activate && python run.py
 
+mkdocs: install-release
+	source .venv/bin/activate && mkdocs gh-deploy --force

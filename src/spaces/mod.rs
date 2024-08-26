@@ -107,7 +107,9 @@ fn anti_trim(inputs: &[Series]) -> PolarsResult<Series> {
                     }
                 } else {
                     if is_first_space {
-                        if i > 0 { output.push_str(&value[0..i]); }
+                        if i > 0 {
+                            output.push_str(&value[0..i]);
+                        }
                         is_first_space = false;
                     }
                     if first_non_space_index == n {

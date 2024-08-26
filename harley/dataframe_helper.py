@@ -6,6 +6,17 @@ from typing import OrderedDict, Any
 
 
 def column_to_list(df: PolarsFrame, column: str) -> List:
+    """
+    Takes a PolarsFrame and a column name, extracts the specified column as a list, and
+    returns it.
+
+    :param df: PolarsFrame
+    :type df: PolarsFrame
+    :param column: The name of the column in
+    the Polars DataFrame (`df`) that you want to extract and convert into a Python list
+    :type column: str
+    :return: a list of values from the specified column in the PolarsFrame dataframe.
+    """
     if isinstance(df := df.select(column), LazyFrame):
         df = df.collect()
     series = df.select(column).to_series()
@@ -13,10 +24,6 @@ def column_to_list(df: PolarsFrame, column: str) -> List:
 
 
 def nested_fields(schema: OrderedDict[str, DataType]) -> Dict[str, DataType]:
-    """
-    Returns only nested fields in a schema.
-    Where 'complex' means nested.
-    """
     return OrderedDict(
         [(field, d_type) for field, d_type in schema if d_type.is_nested()]
     )
@@ -28,6 +35,27 @@ def two_columns_to_dictionary(
     value_col_name: str,
     allow_duplicates_keys: bool = False,
 ) -> Dict[Any, Any]:
+    """
+    Converts two columns from a DataFrame into a dictionary,
+    with one column as keys and the other as values,
+    handling potential issues like duplicate keys and
+    non-hashable types.
+
+    :param df: A DataFrame containing the data you want to convert into a dictionary
+    :type df: DataFrame
+    :param key_col_name: The name of the column in the DataFrame that will be used as the key in the resulting dictionary.
+    This column should contain unique values that will serve as the keys in the dictionary mapping.
+    :type key_col_name: str
+    :param value_col_name: The name of the column in the DataFrame that contains the
+    values you want to map to the keys in the dictionary.
+    :type value_col_name: str
+    :param allow_duplicates_keys: A boolean flag that determines whether duplicate keys are
+    allowed in the resulting dictionary. If set to `False` (default), the function will raise a
+    `ValueError` if duplicate keys are found in the specified key column, defaults to False
+    :type allow_duplicates_keys: bool (optional)
+    :return: Converts the two specified columns from the DataFrame into a dictionary
+    where the key is the value from the key column and the value is the value from the value column.
+    """
     df = df.select(key_col_name, value_col_name)
     key_dtype = df.dtypes[0]
     if key_dtype.is_nested():
